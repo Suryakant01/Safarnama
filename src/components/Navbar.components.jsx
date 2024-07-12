@@ -1,8 +1,9 @@
 import React from "react";
+import NavLink from "react-bootstrap";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import { NavLink } from "react-router-dom";
+
 import { Button } from "react-bootstrap";
 
 import brandImage from "../Assests/flight.png";
@@ -24,11 +25,15 @@ const MyNavbar = () => {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mx-auto ">
-                        <Nav.Link href="/">Destination</Nav.Link>
-                        <Nav.Link href="/">Gallery</Nav.Link>
-                        <Nav.Link href="/">Write</Nav.Link>
+                        <Nav.Link href="/destination">Destination</Nav.Link>
+                        <Nav.Link href="/gallery">Gallery</Nav.Link>
+                        <Nav.Link href="/blog">Write</Nav.Link>
                     </Nav>
-                        <Button variant="outline-light" style={{height: "38px"}}>Login/Singin</Button>
+
+                    <Nav.Link href="/login">
+                        <Button variant="outline-light" style={{ height: "38px" }}>Login/Singin</Button>
+                    </Nav.Link>
+
                 </Navbar.Collapse>
             </Container>
         </Navbar >

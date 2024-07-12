@@ -20,6 +20,7 @@ function App() {
         <Route path ="/destination" element = {<h1>destination Page</h1>} />
         <Route path ="/gallery" element = {<h1>gallery Page</h1>} />
         <Route path ="/blog" element = {<h1>blog Page</h1>} />
+        <Route path ="/login" element = {<h1>login Page</h1>} />
       </Routes>
     </div>
   );
