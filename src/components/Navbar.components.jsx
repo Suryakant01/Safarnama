@@ -13,24 +13,22 @@ const MyNavbar = () => {
     return (
 
         <Navbar style={{ backgroundColor: '#112D58' }} data-bs-theme="dark" sticky="top" collapseOnSelect expand="md">
-            <Container>
+            <Container className="d-flex justify-content-between">
                 <Navbar.Brand href="/"><img
                     src={brandImage}
                     height="30"
-                    className="d-inline-block align-top"
-                    alt="bookify"
+                    className="d-inline-block align-top my-100px"
+                    alt="safarnama"
                 />
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
-                    <Nav className="me-auto">
+                    <Nav className="mx-auto ">
                         <Nav.Link href="/">Destination</Nav.Link>
                         <Nav.Link href="/">Gallery</Nav.Link>
                         <Nav.Link href="/">Write</Nav.Link>
-                        <Button variant="light" style={{height: "38px"}}>Login/Singin</Button>
-
-
                     </Nav>
+                        <Button variant="outline-light" style={{height: "38px"}}>Login/Singin</Button>
                 </Navbar.Collapse>
             </Container>
         </Navbar >
