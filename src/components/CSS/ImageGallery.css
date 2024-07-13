@@ -1,0 +1,70 @@
+.image-gallery-container {
+    display: flex;
+    align-items: center;
+    background-color: #7b4b89; /* This matches the background color from your screenshot */
+    padding: 20px;
+    height: 100vh;
+}
+
+.images {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+}
+
+.images img {
+    width: 150px; /* Adjust as needed */
+    height: 200px; /* Adjust as needed */
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.image1 {
+    transform: rotate(-10deg);
+    position: absolute;
+    left: -20px;
+    z-index: 1;
+}
+
+.image2 {
+    z-index: 2;
+}
+
+.image3 {
+    transform: rotate(10deg);
+    position: absolute;
+    right: -20px;
+    z-index: 1;
+}
+
+.text-section {
+    margin-left: 20px;
+    color: white;
+    height: 50vh;
+}
+
+.text-section h2 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.text-section p {
+    margin: 10px 0;
+}
+
+.view-gallery-button {
+    background-color: #1b458f; /* Button background color */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.view-gallery-button:hover {
+    background-color: #163a74; /* Button hover color */
+}
