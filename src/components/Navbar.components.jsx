@@ -25,13 +25,13 @@ const MyNavbar = () => {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mx-auto ">
-                        <Nav.Link href="/destination">Destination</Nav.Link>
-                        <Nav.Link href="/gallery">Gallery</Nav.Link>
-                        <Nav.Link href="/blog">Write</Nav.Link>
+                        <Nav.Link href="/destination" style={{fontWeight: "bold"}}>Destination</Nav.Link>
+                        <Nav.Link href="/gallery" style={{fontWeight: "bold"}}>Gallery</Nav.Link>
+                        <Nav.Link href="/blog" style={{fontWeight: "bold"}}>Write</Nav.Link>
                     </Nav>
 
                     <Nav.Link href="/login">
-                        <Button variant="outline-light" style={{ height: "38px" }}>Login/Singin</Button>
+                        <Button variant="outline-light" style={{ height: "38px", fontWeight: "bold", borderRadius: "20px" }}>Login/Singin</Button>
                     </Nav.Link>
 
                 </Navbar.Collapse>
