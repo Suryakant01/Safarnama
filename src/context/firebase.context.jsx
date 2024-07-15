@@ -1,11 +1,9 @@
-// Import the functions you need from the SDKs you need
+import { createContext, useContext } from "react";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const FirebaseContext = createContext(null);
+
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: "safarnama-c075f.firebaseapp.com",
@@ -16,6 +14,23 @@ const firebaseConfig = {
   measurementId: "G-Y27FSW4K5D"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+
+const firebaseApp = initializeApp(firebaseConfig);
+const analytics = getAnalytics(FirebaseContext);
+
+
+export const useFirebase = () => useContext(FirebaseContext);
+
+
+export const FirebaseProvider = (props) => {
+
+
+  return (
+    <FirebaseContext.Provider
+      value={{
+
+      }}>
+      {props.children}
+    </FirebaseContext.Provider>
+  )
+}

@@ -1,70 +1,42 @@
-.image-gallery-container {
-    display: flex;
-    align-items: center;
-    background-color: #7b4b89; /* This matches the background color from your screenshot */
-    padding: 20px;
-    height: 100vh;
+.hero-section {
+  background-color: #6F5A7E;
+  padding: 50px 0;
 }
 
-.images {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50vh;
+.image-gallery {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.images img {
-    width: 150px; /* Adjust as needed */
-    height: 200px; /* Adjust as needed */
-    object-fit: cover;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.gallery-image {
+  position: absolute;
+  max-width: 100px;
+  transition: transform 0.3s;
 }
 
-.image1 {
-    transform: rotate(-10deg);
-    position: absolute;
-    left: -20px;
-    z-index: 1;
+.gallery-image.img1 {
+  transform: rotate(-10deg);
 }
 
-.image2 {
-    z-index: 2;
+.gallery-image.img2 {
+  transform: rotate(10deg);
+  z-index: 1;
 }
 
-.image3 {
-    transform: rotate(10deg);
-    position: absolute;
-    right: -20px;
-    z-index: 1;
+.gallery-image.img3 {
+  transform: rotate(-5deg);
+  z-index: 2;
 }
 
-.text-section {
-    margin-left: 20px;
-    color: white;
-    height: 50vh;
+.custom-button {
+  background: none;
+  border: 1px solid #ffffff;
+  color: #ffffff;
 }
 
-.text-section h2 {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.text-section p {
-    margin: 10px 0;
-}
-
-.view-gallery-button {
-    background-color: #1b458f; /* Button background color */
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.view-gallery-button:hover {
-    background-color: #163a74; /* Button hover color */
+.custom-button:hover {
+  background-color: #ffffff;
+  color: #112D58;
 }
