@@ -38,7 +38,7 @@ export const FirebaseProvider = (props) => {
 
   const signUpWithEmail = (email, password) => createUserWithEmailAndPassword(FirebaseAuth, email, password)
 
-  const signInWithEmail = (email, password) => signInWithEmailAndPassword(FirebaseAuth, email, password)
+  const logInWithEmail = (email, password) => signInWithEmailAndPassword(FirebaseAuth, email, password)
 
   return (
     <FirebaseContext.Provider value={{}}>
