@@ -4,7 +4,7 @@ import '../components/CSS/ImageGallery.css';
 const ImageGallery = () => {
     return (
         <div className="image-gallery-container">
-            
+
             <div className="images">
 
                 <img src="image1.jpg" alt="Image 1" className="image1" />
