@@ -11,6 +11,7 @@ import {
   RecaptchaVerifier,
   signInWithPhoneNumber,
   signInWithEmailAndPassword,
+  
 } from "firebase/auth";
 
 const FirebaseContext = createContext(null);
@@ -40,8 +41,15 @@ export const FirebaseProvider = (props) => {
 
   const logInWithEmail = (email, password) => signInWithEmailAndPassword(FirebaseAuth, email, password)
 
+  const signUpWithMobileNumber = () => signInWithPhoneNumber(FirebaseAuth, string: mobileNumber)
   return (
-    <FirebaseContext.Provider value={{}}>
+    <FirebaseContext.Provider
+      value={{
+        signInWithGoogle,
+        signUpWithEmail,
+        logInWithEmail,
+
+      }}>
       {props.children}
     </FirebaseContext.Provider>
   );
