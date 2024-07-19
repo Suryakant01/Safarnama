@@ -4,7 +4,7 @@ import '../components/CSS/ImageGallery.css';
 const ImageGallery = () => {
     return (
         <div className="image-gallery-container">
-            
+
             <div className="images">
             <img src={`${process.env.PUBLIC_URL}/images/Image1.jpeg`} alt="Image 1" className="image1" />
         <img src={`${process.env.PUBLIC_URL}/images/Image2.jpeg`} alt="Image 2" className="image2" />
