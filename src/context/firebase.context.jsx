@@ -6,7 +6,7 @@ import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
-  createUserWithEmailAndPassword,
+
   sendSignInLinkToEmail,
   RecaptchaVerifier,
   signInWithPhoneNumber,
@@ -25,66 +25,24 @@ const firebaseConfig = {
   measurementId: "G-Y27FSW4K5D",
 };
 
-const firebaseApp = initializeApp(firebaseConfig);
+const FirebaseApp = initializeApp(firebaseConfig);
 const analytics = getAnalytics(FirebaseContext);
 const FirebaseAuth = getAuth();
 const googleAuth = new GoogleAuthProvider();
 
 export const useFirebase = () => useContext(FirebaseContext);
 
-const appVerifier = () => {
-  window.recaptchaVerifier = new RecaptchaVerifier(
-      "recaptcha-container",
-      {
-          size: "invisible",
-          callback: (response) => {
-              // reCAPTCHA solved, allow signInWithPhoneNumber.
-              handleSignIn();
-          }
-      }
-  );
-};
-
-const handleSignIn = (phoneNumber,) => {
-  setupRecaptcha();
-  const appVerifier = window.recaptchaVerifier;
-
-  signUpWithMobileNumber(phoneNumber, appVerifier)
-      .then((result) => {
-          setConfirmationResult(result);
-      })
-      .catch((error) => {
-          console.error("SMS not sent", error);
-      });
-};
-const verifyOtp = () => {
-  confirmationResult.confirm(otp)
-      .then((result) => {
-          console.log("User signed in successfully.", result.user);
-      })
-      .catch((error) => {
-          console.error("Incorrect OTP", error);
-      });
-};
-
 export const FirebaseProvider = (props) => {
+
   const signInWithGoogle = () => signInWithPopup(FirebaseAuth, googleAuth);
 
-  const signUpWithEmail = (email, password) =>
-    createUserWithEmailAndPassword(FirebaseAuth, email, password);
-
-  const logInWithEmail = (email, password) =>
-    signInWithEmailAndPassword(FirebaseAuth, email, password);
-
   const signUpWithMobileNumber = (mobileNumber) =>
-    signInWithPhoneNumber(FirebaseAuth, mobileNumber, appVerifier);
+    signInWithPhoneNumber(FirebaseAuth, mobileNumber,);
 
   return (
     <FirebaseContext.Provider
       value={{
         signInWithGoogle,
-        signUpWithEmail,
-        logInWithEmail,
       }}
     >
       {props.children}
