@@ -3,6 +3,7 @@ import React from 'react'
 import HeroSection from '../components/HeroSection.components'
 import DestinationSection from '../components/Destination.componenets'
 import ImageGallery from '../components/ImageGallery.components'
+import Write from '../components/Write.comonent'
 
 
 const HomePage = () => {
@@ -11,6 +12,7 @@ const HomePage = () => {
             <HeroSection />
             <DestinationSection />
             <ImageGallery />
+            <Write />
         </div>
     )
 }

@@ -1,42 +1,63 @@
-.hero-section {
-  background-color: #6F5A7E;
-  padding: 50px 0;
-}
-
-.image-gallery {
-  position: relative;
+.image-gallery-container {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: space-between;
+  background-color:#112D58 ;/* Adjust this color as needed */
+  border-radius: 10px;
+  height: 500px; /* Ensure the container has enough height */
+  width: 100%;
+  padding: 140px;
 }
 
-.gallery-image {
-  position: absolute;
-  max-width: 100px;
-  transition: transform 0.3s;
+.images {
+  display: flex;
+  gap: 0px;
+  
 }
 
-.gallery-image.img1 {
+.image1 {
   transform: rotate(-10deg);
 }
-
-.gallery-image.img2 {
-  transform: rotate(10deg);
-  z-index: 1;
+.image3 {
+  transform: rotate(+10deg);
 }
 
-.gallery-image.img3 {
-  transform: rotate(-5deg);
-  z-index: 2;
+.images img {
+  width: 210px; /* Adjust the width as needed */
+  height: 350px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.custom-button {
-  background: none;
-  border: 1px solid #ffffff;
-  color: #ffffff;
+.text-section {
+  max-width: 300px;
+  text-align: center;
 }
 
-.custom-button:hover {
-  background-color: #ffffff;
-  color: #112D58;
+.text-section h2 {
+  font-size: 24px;
+  color: #f9f5f5; /* Adjust this color as needed */
+  margin-bottom: 10px;
+}
+
+.text-section p {
+  font-size: 16px;
+  color: #ece1e1; /* Adjust this color as needed */
+  margin-bottom: 20px;
+}
+
+.view-gallery-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #002a69; /* Adjust this color as needed */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.view-gallery-button:hover {
+  background-color: #1a0a7d; /* Adjust this color as needed */
+  
 }
