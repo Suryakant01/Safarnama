@@ -22,7 +22,6 @@ const HomePage = () => {
         setLoading(false);
     };
 
-
     return (
         <div>
             <HeroSection />
