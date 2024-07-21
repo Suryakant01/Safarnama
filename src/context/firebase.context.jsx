@@ -8,6 +8,8 @@ import {
     GoogleAuthProvider,
     signInWithPopup,
     sendSignInLinkToEmail,
+    RecaptchaVerifier,
+    signInWithPhoneNumber,
     signOut,
 } from "firebase/auth";
 
@@ -28,6 +30,7 @@ const analytics = getAnalytics(FirebaseApp);
 const FirebaseAuth = getAuth();
 const googleAuth = new GoogleAuthProvider();
 
+export const useFirebase = () => useContext(FirebaseContext);
 
 const actionCodeSettings = {
 
@@ -36,9 +39,6 @@ const actionCodeSettings = {
     handleCodeInApp: true,
 
 };
-
-export const useFirebase = () => useContext(FirebaseContext);
-
 
 
 export const FirebaseProvider = (props) => {
@@ -68,6 +68,10 @@ export const FirebaseProvider = (props) => {
                 console.log("error info", e.code, e.message,);
             })
 
+    const singInWithMobile = (mobileNum) => {
+        signInWithPhoneNumber(FirebaseAuth, mobileNum, )
+    }
+    
     var isLoggedIn = user ? true : false
 
     const logout = () => {
