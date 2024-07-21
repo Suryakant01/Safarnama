@@ -6,6 +6,8 @@ import Footer from './components/Footer.components';
 
 //Pages
 import HomePage from './pages/Home.pages';
+import LoginPage from './pages/Login.pages';
+import RegisterPage from './pages/Register.pages';
 
 //CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -20,7 +22,8 @@ function App() {
         <Route path="/destination" element={<h1>destination Page</h1>} />
         <Route path="/gallery" element={<h1>gallery Page</h1>} />
         <Route path="/blog" element={<h1>blog Page</h1>} />
-        <Route path="/login" element={<h1>login Page</h1>} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
       </Routes>
       <Footer />
     </div>

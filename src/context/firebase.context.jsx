@@ -6,11 +6,7 @@ import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
-
   sendSignInLinkToEmail,
-  RecaptchaVerifier,
-  signInWithPhoneNumber,
-  signInWithEmailAndPassword,
 } from "firebase/auth";
 
 const FirebaseContext = createContext(null);
@@ -26,9 +22,19 @@ const firebaseConfig = {
 };
 
 const FirebaseApp = initializeApp(firebaseConfig);
-const analytics = getAnalytics(FirebaseContext);
+// const analytics = getAnalytics(FirebaseContext);
 const FirebaseAuth = getAuth();
 const googleAuth = new GoogleAuthProvider();
+
+
+const actionCodeSettings = {
+  // URL you want to redirect back to. The domain (www.example.com) for this
+  // URL must be in the authorized domains list in the Firebase Console.
+  url: 'http://localhost:3000/',
+  // This must be true.
+  handleCodeInApp: true,
+  
+};
 
 export const useFirebase = () => useContext(FirebaseContext);
 
@@ -36,13 +42,22 @@ export const FirebaseProvider = (props) => {
 
   const signInWithGoogle = () => signInWithPopup(FirebaseAuth, googleAuth);
 
-  const signUpWithMobileNumber = (mobileNumber) =>
-    signInWithPhoneNumber(FirebaseAuth, mobileNumber,);
+  const singInWithEmailLink = (email) =>
+    sendSignInLinkToEmail(FirebaseAuth, email, actionCodeSettings)
+      .then(() => {
+        window.localStorage.setItem('emailForSignIn', email);
+        console.log("mail sent")
+      })
+      .catch((e) => {
+        console.log("error info", e.code, e.message,);
+      })
+
 
   return (
     <FirebaseContext.Provider
       value={{
         signInWithGoogle,
+        singInWithEmailLink,
       }}
     >
       {props.children}
