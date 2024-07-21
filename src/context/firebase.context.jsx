@@ -34,7 +34,7 @@ const actionCodeSettings = {
   url: 'http://localhost:3000/',
   // This must be true.
   handleCodeInApp: true,
-  
+
 };
 
 export const useFirebase = () => useContext(FirebaseContext);
@@ -52,7 +52,7 @@ export const FirebaseProvider = (props) => {
       } else {
         setUser(null)
       }
-    } )
+    })
   }, [])
 
   const signInWithGoogle = () => signInWithPopup(FirebaseAuth, googleAuth);
@@ -68,8 +68,16 @@ export const FirebaseProvider = (props) => {
         console.log("error info", e.code, e.message,);
       })
 
-  
-      const isLoggedIn = user? true: false
+  var isLoggedIn = user ? true : false
+  const logout = () => {
+    signOut(FirebaseAuth).then(() => {
+      isLoggedIn = false
+      console.log("signout success")
+    }).catch((error) => {
+      console.log("signout fail")
+    });
+  }
+
 
   return (
     <FirebaseContext.Provider
@@ -77,6 +85,7 @@ export const FirebaseProvider = (props) => {
         signInWithGoogle,
         singInWithEmailLink,
         isLoggedIn,
+        logout,
       }}
     >
       {props.children}

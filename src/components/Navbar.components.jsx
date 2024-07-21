@@ -8,11 +8,17 @@ import Navbar from 'react-bootstrap/Navbar';
 import { Button } from "react-bootstrap";
 
 import brandImage from "../Assests/flight.png";
+import { useNavigate } from "react-router-dom";
 
 
 const MyNavbar = () => {
 
     const firebase = useFirebase();
+    const navigate = useNavigate()
+
+    const navigateToLoginPage = () => {
+        navigate("/login")
+    }
 
     return (
 
@@ -33,10 +39,16 @@ const MyNavbar = () => {
                         <Nav.Link href="/blog" style={{fontWeight: "bold"}}>Write</Nav.Link>
                     </Nav>
 
-                    <Nav.Link href="/login">
+                    
                     {firebase.isLoggedIn ? 
-                        <Button variant="outline-light" style={{ height: "38px", fontWeight: "bold", borderRadius: "20px" }}> Logout </Button> : <Button variant="outline-light" style={{ height: "38px", fontWeight: "bold", borderRadius: "20px" }}> Login </Button>
-                    }</Nav.Link>
+                        <Button onClick={firebase.logout} variant="outline-light" style={{ height: "38px", fontWeight: "bold", borderRadius: "20px" }}>
+                            Logout
+                        </Button>
+                        :
+                        <Button onClick={navigateToLoginPage} variant="outline-light" style={{ height: "38px", fontWeight: "bold", borderRadius: "20px" }}>
+                            Login
+                        </Button>
+                    }
 
                 </Navbar.Collapse>
             </Container>

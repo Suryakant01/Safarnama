@@ -11,6 +11,10 @@ const LoginPage = () => {
 
     const [email, setEmail] = useState("");
 
+    if (firebase.isLoggedIn) {
+        navigate("/");
+    }
+
     const registerAcc = () => {
         navigate("/register");
     };
