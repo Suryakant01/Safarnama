@@ -24,7 +24,7 @@ const LoginPage = () => {
         console.log("signing in");
 
         const result = await firebase.singInWithEmailLink(email);
-    }; 
+    };
 
     return (
         <div className="container mt-5">

@@ -6,9 +6,9 @@ const ImageGallery = () => {
         <div className="image-gallery-container">
 
             <div className="images">
-            <img src={`${process.env.PUBLIC_URL}/images/Image1.jpeg`} alt="Image 1" className="image1" />
-        <img src={`${process.env.PUBLIC_URL}/images/Image2.jpeg`} alt="Image 2" className="image2" />
-        <img src={`${process.env.PUBLIC_URL}/images/Image3.jpeg`} alt="Image 3" className="image3" />
+            <img src={`${process.env.PUBLIC_URL}/images/Image1.jpeg`} alt="taj mahal" className="image1" />
+        <img src={`${process.env.PUBLIC_URL}/images/Image2.jpeg`} alt="hawa mahal" className="image2" />
+        <img src={`${process.env.PUBLIC_URL}/images/Image3.jpeg`} alt="kerala" className="image3" />
 
             </div>
 
