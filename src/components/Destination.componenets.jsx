@@ -3,7 +3,7 @@ import React from 'react'
 import Cards from './Card.components'
 import { CardGroup, Row, Col, Button } from "react-bootstrap";
 
-const DestinationSection = () => {
+const DestinationSection = (props) => {
 
     return (
         <div>

@@ -27,14 +27,17 @@ const HomePage = () => {
             <HeroSection />
             {loading ?
                 (<>
-                    <SkeletonLoader />
-                    <SkeletonLoader />
-                    <SkeletonLoader />
-                    <SkeletonLoader />
-                    <SkeletonLoader />
-                    <SkeletonLoader />
-                </>)
-                : ( <DestinationSection /> )
+                    {
+                        [...Array(6)].map((_, index) => (
+                        <SkeletonLoader key={index} />
+                        ))
+                    }
+                </>
+                )
+                :
+                (
+                    <DestinationSection />                    
+                    )
             }
             
             <ImageGallery />
