@@ -1,12 +1,14 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 
 import {
   getAuth,
+  onAuthStateChanged,
   GoogleAuthProvider,
   signInWithPopup,
   sendSignInLinkToEmail,
+  signOut,
 } from "firebase/auth";
 
 const FirebaseContext = createContext(null);
@@ -28,8 +30,7 @@ const googleAuth = new GoogleAuthProvider();
 
 
 const actionCodeSettings = {
-  // URL you want to redirect back to. The domain (www.example.com) for this
-  // URL must be in the authorized domains list in the Firebase Console.
+
   url: 'http://localhost:3000/',
   // This must be true.
   handleCodeInApp: true,
@@ -38,7 +39,21 @@ const actionCodeSettings = {
 
 export const useFirebase = () => useContext(FirebaseContext);
 
+
+
 export const FirebaseProvider = (props) => {
+
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    onAuthStateChanged(FirebaseAuth, (user) => {
+      if (user) {
+        setUser(user)
+      } else {
+        setUser(null)
+      }
+    } )
+  }, [])
 
   const signInWithGoogle = () => signInWithPopup(FirebaseAuth, googleAuth);
 
@@ -47,17 +62,21 @@ export const FirebaseProvider = (props) => {
       .then(() => {
         window.localStorage.setItem('emailForSignIn', email);
         console.log("mail sent")
+        setUser(user)
       })
       .catch((e) => {
         console.log("error info", e.code, e.message,);
       })
 
+  
+      const isLoggedIn = user? true: false
 
   return (
     <FirebaseContext.Provider
       value={{
         signInWithGoogle,
         singInWithEmailLink,
+        isLoggedIn,
       }}
     >
       {props.children}

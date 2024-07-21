@@ -1,4 +1,5 @@
 import React from "react";
+import { useFirebase } from "../context/firebase.context";
 import NavLink from "react-bootstrap";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -10,6 +11,8 @@ import brandImage from "../Assests/flight.png";
 
 
 const MyNavbar = () => {
+
+    const firebase = useFirebase();
 
     return (
 
@@ -31,8 +34,9 @@ const MyNavbar = () => {
                     </Nav>
 
                     <Nav.Link href="/login">
-                        <Button variant="outline-light" style={{ height: "38px", fontWeight: "bold", borderRadius: "20px" }}>Login/Singin</Button>
-                    </Nav.Link>
+                    {firebase.isLoggedIn ? 
+                        <Button variant="outline-light" style={{ height: "38px", fontWeight: "bold", borderRadius: "20px" }}> Logout </Button> : <Button variant="outline-light" style={{ height: "38px", fontWeight: "bold", borderRadius: "20px" }}> Login </Button>
+                    }</Nav.Link>
 
                 </Navbar.Collapse>
             </Container>
