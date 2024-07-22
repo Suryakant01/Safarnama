@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
+import PhoneNum from "../components/Authentication/PhoneNum.comp.auth";
 import { useFirebase } from "../context/firebase.context";
 
 const LoginPage = () => {
@@ -28,6 +29,7 @@ const LoginPage = () => {
 
     return (
         <div className="container mt-5">
+            <PhoneNum />
             <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
@@ -60,6 +62,7 @@ const LoginPage = () => {
             <Button onClick={registerAcc} variant="primary" type="submit">
                 Register Account
             </Button>
+            
         </div>
     );
 };
