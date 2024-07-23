@@ -37,9 +37,9 @@ const MyNavbar = () => {
                         <Nav.Link href="/destination" style={{fontWeight: "bold"}}>Destination</Nav.Link>
                         <Nav.Link href="/gallery" style={{fontWeight: "bold"}}>Gallery</Nav.Link>
                         <Nav.Link href="/blog" style={{fontWeight: "bold"}}>Write</Nav.Link>
+                    
                     </Nav>
 
-                    
                     {firebase.isLoggedIn ? 
                         <Button onClick={firebase.logout} variant="outline-light" style={{ height: "38px", fontWeight: "bold", borderRadius: "20px" }}>
                             Logout

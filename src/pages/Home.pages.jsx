@@ -15,7 +15,7 @@ const HomePage = () => {
         // Simulate a data fetching
         setTimeout(() => {
             fetchUserData();
-        }, 2000);
+        }, 5000);
     }, []);
 
     const fetchUserData = () => {
@@ -25,7 +25,20 @@ const HomePage = () => {
     return (
         <div>
             <HeroSection />
-            {loading ? <SkeletonLoader /> : <DestinationSection /> }
+            {loading ?
+                (<>
+                    {
+                        [...Array(6)].map((_, index) => (
+                        <SkeletonLoader key={index} />
+                        ))
+                    }
+                </>
+                )
+                :
+                (
+                    <DestinationSection />                    
+                    )
+            }
             
             <ImageGallery />
             <Write />

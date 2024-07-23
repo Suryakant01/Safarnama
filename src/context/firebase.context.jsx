@@ -27,17 +27,15 @@ const firebaseConfig = {
 
 const FirebaseApp = initializeApp(firebaseConfig);
 const analytics = getAnalytics(FirebaseApp);
-const FirebaseAuth = getAuth();
+const FirebaseAuth = getAuth(FirebaseApp);
 const googleAuth = new GoogleAuthProvider();
 
 export const useFirebase = () => useContext(FirebaseContext);
 
 const actionCodeSettings = {
-
     url: 'http://localhost:3000/',
     // This must be true.
     handleCodeInApp: true,
-
 };
 
 
@@ -68,10 +66,32 @@ export const FirebaseProvider = (props) => {
                 console.log("error info", e.code, e.message,);
             })
 
-    const singInWithMobile = (mobileNum) => {
-        signInWithPhoneNumber(FirebaseAuth, mobileNum, )
-    }
-    
+    // window.recaptchaVerifier = new RecaptchaVerifier(FirebaseAuth, 'sign-in-button', {
+    //     'size': 'invisible',
+    //     'callback': (response) => {
+    //         // reCAPTCHA solved, allow signInWithPhoneNumber.
+    //         // singInWithMobile(mobileNum);
+
+    //     }
+    // });
+
+    const appVerifier = window.recaptchaVerifier;
+
+    // const singInWithMobile = (mobileNum) => {
+    //     signInWithPhoneNumber(FirebaseAuth, mobileNum, appVerifier)
+    //         .then((confirmationResult) => {
+    //             // SMS sent. Prompt user to type the code from the message, then sign the
+    //             // user in with confirmationResult.confirm(code).
+    //             console.log("otp sent ")
+    //             window.confirmationResult = confirmationResult;
+    //             // ...
+    //         }).catch((error) => {
+    //             // Error; SMS not sent
+    //             // ...
+    //             console.log("otp fail ")
+    //         });
+    // }
+
     var isLoggedIn = user ? true : false
 
     const logout = () => {
@@ -91,6 +111,7 @@ export const FirebaseProvider = (props) => {
                 singInWithEmailLink,
                 isLoggedIn,
                 logout,
+                // singInWithMobile,
             }}
         >
             {props.children}

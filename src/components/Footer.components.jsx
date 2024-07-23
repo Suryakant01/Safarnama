@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Nav } from 'react-bootstrap';
 // import { FaIconName } from 'react-icons/fa';
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaGithub } from 'react-icons/fa';
 
 
 const Footer = () => {
@@ -25,9 +25,8 @@ const Footer = () => {
                     <Col md={4}>
                         <h5>Follow Us</h5>
                         <div>
-                            <a href="https://facebook.com" style={{ color: 'white', marginRight: '15px' }}><FaFacebook size={30} /></a>
+                            <a href="https://github.com/Suryakant01/Safarnama" style={{ color: 'white', marginRight: '15px' }}><FaGithub size={30} /></a>
                             <a href="https://twitter.com" style={{ color: 'white', marginRight: '15px' }}><FaTwitter size={30} /></a>
-                            <a href="https://instagram.com" style={{ color: 'white', marginRight: '15px' }}><FaInstagram size={30} /></a>
                             <a href="https://linkedin.com" style={{ color: 'white' }}><FaLinkedin size={30} /></a>
                         </div>
                     </Col>
