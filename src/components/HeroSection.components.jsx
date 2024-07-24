@@ -8,11 +8,9 @@ const HeroSection = () => {
     return (
 
         <div className="hero-container">
-            {/* <div style={{ position: "relative" }}> */}
                 <video className="hero-video" autoPlay loop muted>
                     <source src={videoSource} type='video/mp4' />
                 </video>
-            {/* </div> */}
             <div className="hero-content">
                 <Container className="text-center" style={{ position: "relative", zIndex: "1" }}>
                     <h1 className="hero-title" style={{ fontWeight: "bold" }}>Explore. Dream. Discover</h1>

@@ -8,6 +8,7 @@ import Footer from './components/Footer.components';
 import HomePage from './pages/Home.pages';
 import LoginPage from './pages/Login.pages';
 import RegisterPage from './pages/Register.pages';
+import DestinationPage from './pages/Destination.pages';
 
 //CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -19,7 +20,7 @@ function App() {
       <MyNavbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/destination" element={<h1>Dest. Page</h1>} />
+        <Route path="/destination" element={<DestinationPage />} />
         <Route path="/gallery" element={<h1>gallery Page</h1>} />
         <Route path="/blog" element={<h1>blog Page</h1>} />
         <Route path="/login" element={<LoginPage />} />
