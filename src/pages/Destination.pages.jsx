@@ -10,11 +10,11 @@ import DestinationSection from '../components/Destination.componenets';
 
 const DestinationPage = () => {
 
-    const bookImage = "https://firebasestorage.googleapis.com/v0/b/safarnama-c075f.appspot.com/o/Assets%2FIMG20240105111318.jpg?alt=media&token=eeb2de9a-b632-4d9d-9d9f-dc09697ad477"
+    const bookImage = "https://firebasestorage.googleapis.com/v0/b/safarnama-c075f.appspot.com/o/Assets%2F79011dcca5aaa78c13b0e0c9245e0aa0%201.png?alt=media&token=90e817e9-a05f-46d8-8816-5cc44d2f3334"
 
     const heroStyle = {
         background: `url(${bookImage}) no-repeat center center/cover`,
-        color: 'white',
+        color: 'black',
         height: '100vh',
         width: "100%",
         display: 'flex',
