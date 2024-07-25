@@ -11,6 +11,8 @@ const LoginPage = () => {
     const navigate = useNavigate();
 
     const [email, setEmail] = useState("");
+    const [mobileNum, setMobileNum] = useState("");
+    const [OTP, setOTP] = useState("");
 
     if (firebase.isLoggedIn) {
         navigate("/");
@@ -27,9 +29,22 @@ const LoginPage = () => {
         const result = await firebase.singInWithEmailLink(email);
     };
 
+    const sendOTP = async (e) => {
+        e.preventDefault();
+        console.log("phone num entered");
+
+        const result = await firebase.singInWithMobile(mobileNum);
+    };
+    
+    const verifyOTP = async (e) => {
+        e.preventDefault();
+        console.log("otp entered");
+        const result = await firebase.verifyOTP(OTP);
+    };
+
     return (
         <div className="container mt-5">
-            <PhoneNum />
+            {/* Email */}
             <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
@@ -59,9 +74,28 @@ const LoginPage = () => {
             </Button>
 
             <h4 className="mt-5 mb-2">Don't have an Account?</h4>
-            <Button onClick={registerAcc} variant="primary" type="submit">
+            <Button onClick={registerAcc} variant="primary" type="submit" style={{marginBottom: "20px", display: "inline"}}>
                 Register Account
             </Button>
+
+            
+             
+            
+            <input
+                type="text"
+                value={mobileNum}
+                onChange={(e) => setMobileNum(e.target.value)}
+                placeholder="Enter mobile number"
+            />
+            <button onClick={sendOTP}>Send OTP</button>
+            <div id="recaptcha-container"></div>
+            <input
+                type="text"
+                value={OTP}
+                onChange={(e) => setOTP(e.target.value)}
+                placeholder="Enter OTP"
+            />
+            <button onClick={verifyOTP}>Verify OTP</button>
             
         </div>
     );

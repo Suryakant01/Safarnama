@@ -66,31 +66,46 @@ export const FirebaseProvider = (props) => {
                 console.log("error info", e.code, e.message,);
             })
 
-    // window.recaptchaVerifier = new RecaptchaVerifier(FirebaseAuth, 'sign-in-button', {
-    //     'size': 'invisible',
-    //     'callback': (response) => {
-    //         // reCAPTCHA solved, allow signInWithPhoneNumber.
-    //         // singInWithMobile(mobileNum);
+            FirebaseAuth.settings.appVerificationDisabledForTesting = false;
+            const setupRecaptcha = (mobileNum) => {
+                window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
+                    'size': 'invisible',
+                    'callback': (response) => {
+                        // reCAPTCHA solved - handle the mobile number sign-in.
+                        console.log('Recaptcha resolved');
+                        singInWithMobile(mobileNum)
+                    }
+                }, FirebaseAuth);
+            };
 
-    //     }
-    // });
-
-    const appVerifier = window.recaptchaVerifier;
-
-    // const singInWithMobile = (mobileNum) => {
-    //     signInWithPhoneNumber(FirebaseAuth, mobileNum, appVerifier)
-    //         .then((confirmationResult) => {
-    //             // SMS sent. Prompt user to type the code from the message, then sign the
-    //             // user in with confirmationResult.confirm(code).
-    //             console.log("otp sent ")
-    //             window.confirmationResult = confirmationResult;
-    //             // ...
-    //         }).catch((error) => {
-    //             // Error; SMS not sent
-    //             // ...
-    //             console.log("otp fail ")
-    //         });
-    // }
+    const singInWithMobile = (mobileNum) => {
+        setupRecaptcha();
+        const appVerifier = window.recaptchaVerifier;
+        signInWithPhoneNumber(FirebaseAuth, mobileNum, appVerifier)
+            .then((confirmationResult) => {
+                // SMS sent. Prompt user to type the code from the message, then sign the
+                // user in with confirmationResult.confirm(code).
+                console.log("otp sent ")
+                window.confirmationResult = confirmationResult;
+                // ...
+            }).catch((error) => {
+                // Error; SMS not sent
+                // ...
+                console.log("otp fail ")
+            });
+        }
+        
+            const verifyOTP = (otp) => {
+                window.confirmationResult.confirm(otp).then((result) => {
+                    // User signed in successfully.
+                    const user = result.user;
+                    setUser(user);
+                    console.log("User signed in with OTP");
+                }).catch((error) => {
+                    // User couldn't sign in (bad verification code?)
+                    console.log("OTP verification failed", error);
+                });
+            };
 
     var isLoggedIn = user ? true : false
 
@@ -111,10 +126,13 @@ export const FirebaseProvider = (props) => {
                 singInWithEmailLink,
                 isLoggedIn,
                 logout,
-                // singInWithMobile,
+                singInWithMobile,
+                verifyOTP,
+
             }}
         >
             {props.children}
+            {/* <div id="recaptcha-container"></div> */}
         </FirebaseContext.Provider>
     );
 };
