@@ -46,7 +46,7 @@ const LoginPage = () => {
                         We'll never share your email with anyone else.
                     </Form.Text>
                 </Form.Group>
-
+                
                 <Button variant="primary" type="submit">
                     Login
                 </Button>
