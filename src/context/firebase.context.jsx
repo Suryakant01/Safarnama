@@ -70,7 +70,7 @@ export const FirebaseProvider = (props) => {
 
     const setupRecaptcha = (mobileNum) => {
 
-        const recaptachVerifier = new RecaptchaVerifier(FirebaseAuth,'recaptcha-container',
+        window.recaptchaVerifier = new RecaptchaVerifier(FirebaseAuth,'recaptcha-container',
             {
                 'size': 'invisible',
                 'callback': (response) => {
@@ -80,13 +80,25 @@ export const FirebaseProvider = (props) => {
                     console.log('Recaptcha expired');
                 }
             }, );
-        recaptachVerifier.render();
-        return signInWithPhoneNumber(
-            FirebaseAuth, mobileNum, recaptachVerifier
-        )
+            // window.recaptchaVerifier.render();
+        // return signInWithPhoneNumber(
+        //     FirebaseAuth, mobileNum, recaptachVerifier
+        // )
     };
 
-    
+    const signWithNum = (mobileNum) => {
+        setupRecaptcha(); // Setup recaptcha before sign-in
+        const recaptachVerifier = window.recaptchaVerifier;
+        recaptachVerifier.render();
+        signInWithPhoneNumber(FirebaseAuth, mobileNum, recaptachVerifier)
+            .then((confirmationResult) => {
+                console.log("OTP sent");
+                // console.log("win conf",window.confirmationResult)
+                console.log("conf res",confirmationResult)
+                window.confirmationResult = confirmationResult;
+            }
+        )
+    }
 
     // const singInWithMobile = (mobileNum) => {
 
@@ -137,9 +149,10 @@ export const FirebaseProvider = (props) => {
                 singInWithEmailLink,
                 isLoggedIn,
                 logout,
+                signWithNum,
                 // singInWithMobile,
                 // verifyOTP,
-                setupRecaptcha,
+                // setupRecaptcha,
             }}
         >
             {props.children}

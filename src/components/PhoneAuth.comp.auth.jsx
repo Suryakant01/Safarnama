@@ -17,7 +17,7 @@ const PhoneAuth = () => {
         console.log("phone num entered", mobileNum);
 
         try {
-            const resp = await firebase.setupRecaptcha(mobileNum);
+            const resp = await firebase.signWithNum(mobileNum);
             setResult(resp)
             console.log("resp", resp)
         } catch (error) {
