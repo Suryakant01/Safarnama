@@ -5,11 +5,13 @@ import MyNavbar from './components/Navbar.components';
 import Footer from './components/Footer.components';
 import PhoneAuth from './components/PhoneAuth.comp.auth';
 
+
 //Pages
 import HomePage from './pages/Home.pages';
 import LoginPage from './pages/Login.pages';
 import RegisterPage from './pages/Register.pages';
 import DestinationPage from './pages/Destination.pages';
+import BlogForm from './pages/BlogForm.pages';
 
 //CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -27,6 +29,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/phone" element={<PhoneAuth />} />
+        <Route path="/submit-blog" element={<BlogForm />} />
       </Routes>
       <div id="recaptcha-container"></div>
       <Footer />

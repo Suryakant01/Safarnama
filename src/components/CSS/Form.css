@@ -1,0 +1,78 @@
+body {
+    background-color: #f5faf7; /* Background color matching the form's background */
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.blog-form {
+    background-color: #71c6d5; /* Light background color for the form */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 1750px; /* Adjust width as needed */
+}
+
+.blog-form input[type="text"],
+.blog-form input[type="number"],
+.blog-form input[type="file"],
+.blog-form textarea,
+.blog-form button {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.blog-form input[type="file"] {
+    padding: 10px;
+}
+
+.blog-form textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+.blog-form button {
+    background-color: #004680; /* Dark blue color for the button */
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+}
+
+.blog-form button:hover {
+    background-color: #003366; /* Darker blue for hover effect */
+}
+
+/* Styling for the text above the form */
+.blog-form-header {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.blog-form-label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.blog-form h2 {
+    padding-top: 20px;
+    text-decoration: dashed;
+}
