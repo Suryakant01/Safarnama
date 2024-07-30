@@ -26,7 +26,7 @@ const HomePage = () => {
         <div>
             <HeroSection />
             {loading ?
-                (<>
+                ( <>
                     {
                         [...Array(6)].map((_, index) => (
                         <SkeletonLoader key={index} />

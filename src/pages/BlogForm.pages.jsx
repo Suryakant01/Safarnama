@@ -4,10 +4,10 @@ import { Navbar } from 'react-bootstrap'
 
 const BlogForm = () => {
   return (
-    <div>
-    <Navbar />
+    <div className=''> 
+      <div className='conainer'>        
       <Form />
-      <footer />
+      </div>
     </div>
   )
 }

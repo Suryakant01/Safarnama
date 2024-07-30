@@ -1,13 +1,3 @@
-body {
-    background-color: #f5faf7; /* Background color matching the form's background */
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-}
-
 .blog-form {
     background-color: #71c6d5; /* Light background color for the form */
     padding: 20px;

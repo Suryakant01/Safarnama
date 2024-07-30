@@ -68,67 +68,49 @@ export const FirebaseProvider = (props) => {
                 console.log("error info", e.code, e.message,);
             })
 
-    const setupRecaptcha = (mobileNum) => {
+    {
+        // const setupRecaptcha = () => {
 
-        window.recaptchaVerifier = new RecaptchaVerifier(FirebaseAuth,'recaptcha-container',
-            {
-                'size': 'invisible',
-                'callback': (response) => {
-                    console.log('Recaptcha resolved');
-                },
-                'expired-callback': () => {
-                    console.log('Recaptcha expired');
-                }
-            }, );
-            // window.recaptchaVerifier.render();
-        // return signInWithPhoneNumber(
-        //     FirebaseAuth, mobileNum, recaptachVerifier
-        // )
-    };
+        //     window.recaptchaVerifier = new RecaptchaVerifier(FirebaseAuth,'recaptcha-container',
+        //         {
+        //             'size': 'invisible',
+        //             'callback': (response) => {
+        //                 console.log('Recaptcha resolved');
+        //             },
+        //             'expired-callback': () => {
+        //                 console.log('Recaptcha expired');
+        //             }
+        //         }, );
+        //         // window.recaptchaVerifier.render();
+        //     // return signInWithPhoneNumber(
+        //     //     FirebaseAuth, mobileNum, recaptachVerifier
+        //     // )
+        // };
 
-    const signWithNum = (mobileNum) => {
-        setupRecaptcha(); // Setup recaptcha before sign-in
-        const recaptachVerifier = window.recaptchaVerifier;
-        recaptachVerifier.render();
-        signInWithPhoneNumber(FirebaseAuth, mobileNum, recaptachVerifier)
-            .then((confirmationResult) => {
-                console.log("OTP sent");
-                // console.log("win conf",window.confirmationResult)
-                console.log("conf res",confirmationResult)
-                window.confirmationResult = confirmationResult;
-            }
-        )
+        // const signWithNum = (mobileNum) => {
+        //     setupRecaptcha(); // Setup recaptcha before sign-in
+        //     const recaptachVerifier = window.recaptchaVerifier;
+        //     // recaptachVerifier.render();
+        //     signInWithPhoneNumber(FirebaseAuth, mobileNum, recaptachVerifier)
+        //         .then((confirmationResult) => {
+        //             console.log("OTP sent");
+        //             // console.log("win conf",window.confirmationResult)
+        //             console.log("conf res",confirmationResult)
+        //             window.confirmationResult = confirmationResult;
+        //         }
+        //     )
+        // }
+
+        // const verifyOTP = (OTP) => {
+        //     window.confirmationResult.confirm(OTP).then((result) => {
+        //         const user = result.user;
+        //         setUser(user);
+        //         console.log("User signed in with OTP", user);
+        //     }).catch((error) => {
+        //         console.log("OTP verification failed", error);
+        //     });
+        // };
     }
-
-    // const singInWithMobile = (mobileNum) => {
-
-    //     const appVerifier = window.recaptchaVerifier;
-    //     setupRecaptcha();
-    //     signInWithPhoneNumber(FirebaseAuth, mobileNum, appVerifier)
-    //         .then((confirmationResult) => {
-    //             // SMS sent. Prompt user to type the code from the message, then sign the
-    //             // user in with confirmationResult.confirm(code).
-    //             console.log("otp sent ")
-    //             window.confirmationResult = confirmationResult;
-    //             // ...
-    //         }).catch((error) => {
-    //             // Error; SMS not sent
-    //             // ...
-    //             console.log("otp fail ")
-    //         });
-    // }
-
-    // const verifyOTP = (otp) => {
-    //     window.confirmationResult.confirm(otp).then((result) => {
-    //         // User signed in successfully.
-    //         const user = result.user;
-    //         setUser(user);
-    //         console.log("User signed in with OTP");
-    //     }).catch((error) => {
-    //         // User couldn't sign in (bad verification code?)
-    //         console.log("OTP verification failed", error);
-    //     });
-    // };
 
     var isLoggedIn = user ? true : false
 
@@ -142,17 +124,58 @@ export const FirebaseProvider = (props) => {
     }
 
 
+    const setupRecaptcha =  () => {
+        if (!window.recaptchaVerifier) {
+             window.recaptchaVerifier =  new RecaptchaVerifier(FirebaseAuth, 'recaptcha-container', {
+                'size': 'invisible',
+                'callback': (response) => {
+                    console.log('Recaptcha resolved');
+                },
+                'expired-callback': () => {
+                    console.log('Recaptcha expired');
+                }
+            }, );
+            window.recaptchaVerifier.render();
+        }
+    };
+
+    // Function to sign in with mobile number
+    const signInWithMobile = async (mobileNum) => {
+         setupRecaptcha(); // Setup recaptcha before sign-in
+        const appVerifier = window.recaptchaVerifier;
+        await signInWithPhoneNumber(FirebaseAuth, mobileNum, appVerifier)
+            .then((confirmationResult) => {
+                console.log("OTP sent");
+                window.confirmationResult = confirmationResult;
+            })
+            .catch((error) => {
+                console.log("OTP sending failed", error);
+            });
+    };
+
+    // Function to verify OTP
+    const verifyOTP = (otp) => {
+        window.confirmationResult.confirm(otp).then((result) => {
+            const user = result.user;
+            setUser(user);
+            console.log("User signed in with OTP");
+        }).catch((error) => {
+            console.log("OTP verification failed", error);
+        });
+    };
+
+    
     return (
+
         <FirebaseContext.Provider
             value={{
                 signInWithGoogle,
                 singInWithEmailLink,
                 isLoggedIn,
                 logout,
-                signWithNum,
-                // singInWithMobile,
-                // verifyOTP,
-                // setupRecaptcha,
+                signInWithMobile,
+                verifyOTP,
+                setupRecaptcha,
             }}
         >
             {props.children}

@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import MyNavbar from './components/Navbar.components';
 import Footer from './components/Footer.components';
 import PhoneAuth from './components/PhoneAuth.comp.auth';
+import HeroSection from './components/HeroSection.components';
 
 
 //Pages
@@ -21,6 +22,7 @@ function App() {
   return (
     <div className="App">
       <MyNavbar />
+      
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/destination" element={<DestinationPage />} />
@@ -31,7 +33,6 @@ function App() {
         <Route path="/phone" element={<PhoneAuth />} />
         <Route path="/submit-blog" element={<BlogForm />} />
       </Routes>
-      <div id="recaptcha-container"></div>
       <Footer />
     </div>
   );
