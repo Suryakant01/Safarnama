@@ -24,7 +24,14 @@ const HomePage = () => {
 
     return (
         <div>
-            <HeroSection />
+            <HeroSection 
+                mediaSource="https://firebasestorage.googleapis.com/v0/b/safarnama-c075f.appspot.com/o/Assets%2FtravelVideo.mp4?alt=media&token=253087a6-9e38-4acb-ba81-74617f958810"
+                mediaType="video"
+                title="Explore. Dream. Discover"
+                subtitle="Uncovering Hidden Gems Around the World"
+                buttonText="Start Exploring"
+
+            />
             {loading ?
                 ( <>
                     {
