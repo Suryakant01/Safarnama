@@ -5,9 +5,9 @@ import { Navbar } from 'react-bootstrap'
 const BlogForm = () => {
   return (
     <div>
-    <Navbar />
+    
       <Form />
-      <footer />
+    
     </div>
   )
 }

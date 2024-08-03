@@ -1,0 +1,42 @@
+/* LoginPage.css */
+
+.page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #000a0d;
+}
+
+
+.form {
+    background-color: #eeeeee;
+    padding-top: 40px;
+    padding: 20px;
+    height: 660px;
+    width: 800px;
+
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.email {
+    padding-top: 60px;
+   size: 20px;
+}
+
+.image-section {
+   background-color: #6183c8; /* Replace with the correct path to your image */
+    background-size: cover;
+    background-position: center;
+    height: 300%;
+    
+    padding: 80px;
+}
+
+@media (min-width: 768px) {
+    .login-image {
+        height: 500px;
+        width: 100%;
+    }
+}
