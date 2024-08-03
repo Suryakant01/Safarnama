@@ -4,7 +4,6 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "../components/CSS/LoginPage.css";
 
-import PhoneNum from "../components/Authentication/PhoneNum.comp.auth";
 import { useFirebase } from "../context/firebase.context";
 
 const LoginPage = () => {
