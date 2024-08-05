@@ -148,7 +148,7 @@ export const FirebaseProvider = (props) => {
             userEmail: user.email,
             displayName: user.displayName,
             profilPic: user.photoURL,
-            writtenOnDate: (new Date(Date.now())).toLocaleDateString('en-GB', {
+            writtenOnDate: new Date().toLocaleDateString('en-GB', {
                 day: '2-digit',
                 month: 'short',
                 year: 'numeric'
@@ -159,7 +159,7 @@ export const FirebaseProvider = (props) => {
     
     const getArticles = async () => {
         return  await getDocs(collection(FireStore, "articles"))
-    }
+    }n
 
     const getImageURL = (path) => {
         return getDownloadURL(ref(storage, path))
