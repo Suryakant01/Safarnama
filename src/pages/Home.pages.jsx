@@ -15,7 +15,7 @@ const HomePage = () => {
         // Simulate a data fetching
         setTimeout(() => {
             fetchUserData();
-        }, 5000);
+        }, 2000);
     }, []);
 
     const fetchUserData = () => {

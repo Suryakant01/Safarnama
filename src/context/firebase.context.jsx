@@ -12,7 +12,7 @@ import {
     signInWithPhoneNumber,
     signOut,
 } from "firebase/auth";
-import { getFirestore, doc, getDoc, getDocs, addDoc, deleteDoc, collection, querywhere, } from "firebase/firestore"
+import { getFirestore, serverTimestamp, doc, getDoc, getDocs, addDoc, deleteDoc, collection, querywhere, } from "firebase/firestore"
 
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage"
 
@@ -133,6 +133,7 @@ export const FirebaseProvider = (props) => {
 
         const uploadStatePic = await uploadBytes(imageRef, destPic)
         console.log("uploadStatePic", uploadStatePic);
+        
 
         return await addDoc(collection(FireStore, "articles"), {
             name,
@@ -144,13 +145,13 @@ export const FirebaseProvider = (props) => {
             userEmail: user.email,
             displayName: user.displayName,
             profilPic: user.photoURL,
-            writtenOn: Date.now(),
+            writtenOn: serverTimestamp()
 
         })
     }
     
     const getArticles = async () => {
-        return getDocs(collection(FireStore, "articles"))
+        return  await getDocs(collection(FireStore, "articles"))
     }
 
 
