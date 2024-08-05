@@ -148,7 +148,11 @@ export const FirebaseProvider = (props) => {
             userEmail: user.email,
             displayName: user.displayName,
             profilPic: user.photoURL,
-            writtenOn: serverTimestamp()
+            writtenOnDate: (new Date(Date.now())).toLocaleDateString('en-GB', {
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric'
+              }),
 
         })
     }
