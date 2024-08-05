@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import "../components/CSS/LoginPage.css";
 
 import { useFirebase } from "../context/firebase.context";
 
@@ -30,11 +31,15 @@ const LoginPage = () => {
 
     
     return (
-        <div className="container mt-5">
-            {/* Email */}
-            <Form onSubmit={handleSubmit}>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Email address</Form.Label>
+       <div className="page">
+             {/* Email */}
+            <div className='image-section'>
+                <img src={`${process.env.PUBLIC_URL}/images/Loginimg.png`} alt="loginImg" className='login-image' />
+            </div>
+         <div className="form">
+         <Form onSubmit={handleSubmit} >
+                <Form.Group className="formGroup" controlId="formBasicEmail">
+                    <Form.Label className="email">Email address</Form.Label>
                     <Form.Control
                         onChange={(e) => setEmail(e.target.value)}
                         value={email}
@@ -64,8 +69,10 @@ const LoginPage = () => {
             <Button onClick={registerAcc} variant="primary" type="submit" style={{marginBottom: "20px", display: "inline"}}>
                 Register Account
             </Button>
+         </div>
             
         </div>
+       
     );
 };
 
