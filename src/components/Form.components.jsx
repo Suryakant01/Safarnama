@@ -37,7 +37,7 @@ const Form = ({ onSubmit }) => {
 
                 <textarea value={article} onChange={(e) => setArticle(e.target.value)} placeholder='Your Journey' required />
                 
-                <input type='file' onChange={(e) => setDestPic(e.target.value[0])} placeholder='Your Journey' multiple />
+                <input type='file' onChange={(e) => setDestPic(e.target.files[0])} placeholder='Your Journey'  />
 
                 <button type='submit'>Submit Blog</button>
             </form>

@@ -1,28 +1,23 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import { useFirebase } from "../context/firebase.context"
+import { useFirebase } from '../context/firebase.context';
 import { useEffect, useState } from 'react';
 
 const Cards = (props) => {
     const firebase = useFirebase();
-
-    const [articles, setArticles] = useState([])
+    
+    const [url, setURL] = useState(null);
 
     useEffect(() => {
-        firebase.getArticles().then((articles) => setArticles(articles.docs) )
+        firebase.getImageURL(props.imageURL).then((url) => setURL(url))
     }, [firebase])
+    
+console.log("url", url)
 
-    articles.map((articles, index) => {
-        console.log(articles.data())
-    })
-    const time = Date.UTC(2024,9,23)
-    console.log("time", time)
-
-    console.log("articles stored data", articles)
     return (
         
         <Card className='container mr-0 pr-0' style={{ width: '18rem',}}>
-            <Card.Img variant="top" src={props.image} />
+            <Card.Img variant="top" src={url} />
             <Card.Body>
                 <Card.Title>{props.title}</Card.Title>
                 

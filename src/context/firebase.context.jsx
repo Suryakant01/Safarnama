@@ -131,7 +131,10 @@ export const FirebaseProvider = (props) => {
         const imageRef = ref(storage, `uploads/articles/statePic/${Date.now()}-${destPic.name}`)
         console.log("iamgeREf", imageRef);
 
-        const uploadStatePic = await uploadBytes(imageRef, destPic)
+        const metadata = {
+            contentType: destPic.type, // Ensure this is set to the correct MIME type
+        };
+        const uploadStatePic = await uploadBytes(imageRef, destPic, metadata )
         console.log("uploadStatePic", uploadStatePic);
         
 
@@ -154,6 +157,11 @@ export const FirebaseProvider = (props) => {
         return  await getDocs(collection(FireStore, "articles"))
     }
 
+    const getImageURL = (path) => {
+        return getDownloadURL(ref(storage, path))
+    }
+
+
 
     return (
 
@@ -168,6 +176,7 @@ export const FirebaseProvider = (props) => {
                 setupRecaptcha,
                 setArticles,
                 getArticles,
+                getImageURL,
             }}
         >
             {props.children}
