@@ -22,7 +22,7 @@ const HomePage = () => {
         // Simulate a data fetching
         setTimeout(() => {
             fetchUserData();
-        }, 2000);
+        }, 2500);
     }, []);
 
     const fetchUserData = () => {
@@ -69,10 +69,8 @@ const HomePage = () => {
                                 </Col>
                             ))}
                             </Row>
-                    </CardGroup>
-                    
-                                        
-                    )
+                    </CardGroup>                                    
+                )
             }
             
             <ImageGallery />

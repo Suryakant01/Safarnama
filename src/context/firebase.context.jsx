@@ -12,7 +12,7 @@ import {
     signInWithPhoneNumber,
     signOut,
 } from "firebase/auth";
-import { getFirestore, serverTimestamp, doc, getDoc, getDocs, addDoc, deleteDoc, collection, querywhere, } from "firebase/firestore"
+import { getFirestore, serverTimestamp, doc, getDoc, getDocs, addDoc, collection, query, where, deleteDoc } from "firebase/firestore"
 
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage"
 
@@ -161,7 +161,10 @@ export const FirebaseProvider = (props) => {
         return getDownloadURL(ref(storage, path))
     }
 
-
+    const deleteArticles =  async (articleID) => {
+        await deleteDoc(doc(FireStore, "articles", articleID))
+        console.log(`article - ${articleID} deleted`)
+    }
 
     return (
 
@@ -177,6 +180,7 @@ export const FirebaseProvider = (props) => {
                 setArticles,
                 getArticles,
                 getImageURL,
+                deleteArticles,
             }}
         >
             {props.children}

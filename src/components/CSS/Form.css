@@ -1,14 +1,36 @@
 .blog-form {
-    background-color: #71c6d5;
+    background-color: #9ecfe7;
     padding: 10px;
+    margin: 20px 0 50px 200px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     gap: 15px;
     width: 100%;
-    max-width: 1000px;
+    max-width: 900px;
     box-sizing: border-box;
+    
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    border: 1px solid #007bff;
+    transition: background-color 0.3s;
+}
+
+.custom-file-upload:hover {
+    background-color: #0056b3;
+}
+
+.file-name {
+    margin-left: 10px;
+    font-style: italic;
 }
 
 .blog-form input[type="text"],
@@ -26,15 +48,17 @@
 
 .blog-form input[type="file"] {
     padding: 10px;
+    border-radius: 20px;
+    cursor: pointer;
 }
 
 .blog-form textarea {
-    height: 100px;
+    height: 300px;
     resize: vertical;
 }
 
 .blog-form button {
-    background-color: #004680;
+    background-color: #1f74b9;
     color: white;
     border: none;
     cursor: pointer;
@@ -50,7 +74,7 @@
 }
 
 .blog-form button:hover {
-    background-color: #003366;
+    background-color: #155390;
 }
 
 .blog-form-header {
