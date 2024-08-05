@@ -159,7 +159,7 @@ export const FirebaseProvider = (props) => {
     
     const getArticles = async () => {
         return  await getDocs(collection(FireStore, "articles"))
-    }n
+    }
 
     const getImageURL = (path) => {
         return getDownloadURL(ref(storage, path))
