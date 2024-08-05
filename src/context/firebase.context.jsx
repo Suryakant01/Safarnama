@@ -12,6 +12,9 @@ import {
     signInWithPhoneNumber,
     signOut,
 } from "firebase/auth";
+import { getFirestore, doc, getDoc, getDocs, addDoc, deleteDoc, collection, querywhere, } from "firebase/firestore"
+
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage"
 
 const FirebaseContext = createContext(null);
 
@@ -29,6 +32,8 @@ const FirebaseApp = initializeApp(firebaseConfig);
 const analytics = getAnalytics(FirebaseApp);
 const FirebaseAuth = getAuth(FirebaseApp);
 const googleAuth = new GoogleAuthProvider();
+const FireStore = getFirestore(FirebaseApp)
+const storage = getStorage(FirebaseApp);
 
 export const useFirebase = () => useContext(FirebaseContext);
 
@@ -68,50 +73,6 @@ export const FirebaseProvider = (props) => {
                 console.log("error info", e.code, e.message,);
             })
 
-    {
-        // const setupRecaptcha = () => {
-
-        //     window.recaptchaVerifier = new RecaptchaVerifier(FirebaseAuth,'recaptcha-container',
-        //         {
-        //             'size': 'invisible',
-        //             'callback': (response) => {
-        //                 console.log('Recaptcha resolved');
-        //             },
-        //             'expired-callback': () => {
-        //                 console.log('Recaptcha expired');
-        //             }
-        //         }, );
-        //         // window.recaptchaVerifier.render();
-        //     // return signInWithPhoneNumber(
-        //     //     FirebaseAuth, mobileNum, recaptachVerifier
-        //     // )
-        // };
-
-        // const signWithNum = (mobileNum) => {
-        //     setupRecaptcha(); // Setup recaptcha before sign-in
-        //     const recaptachVerifier = window.recaptchaVerifier;
-        //     // recaptachVerifier.render();
-        //     signInWithPhoneNumber(FirebaseAuth, mobileNum, recaptachVerifier)
-        //         .then((confirmationResult) => {
-        //             console.log("OTP sent");
-        //             // console.log("win conf",window.confirmationResult)
-        //             console.log("conf res",confirmationResult)
-        //             window.confirmationResult = confirmationResult;
-        //         }
-        //     )
-        // }
-
-        // const verifyOTP = (OTP) => {
-        //     window.confirmationResult.confirm(OTP).then((result) => {
-        //         const user = result.user;
-        //         setUser(user);
-        //         console.log("User signed in with OTP", user);
-        //     }).catch((error) => {
-        //         console.log("OTP verification failed", error);
-        //     });
-        // };
-    }
-
     var isLoggedIn = user ? true : false
 
     const logout = () => {
@@ -123,10 +84,10 @@ export const FirebaseProvider = (props) => {
         });
     }
 
-
-    const setupRecaptcha =  () => {
+    //Captcha 
+    const setupRecaptcha = () => {
         if (!window.recaptchaVerifier) {
-             window.recaptchaVerifier =  new RecaptchaVerifier(FirebaseAuth, 'recaptcha-container', {
+            window.recaptchaVerifier = new RecaptchaVerifier(FirebaseAuth, 'recaptcha-container', {
                 'size': 'invisible',
                 'callback': (response) => {
                     console.log('Recaptcha resolved');
@@ -134,14 +95,14 @@ export const FirebaseProvider = (props) => {
                 'expired-callback': () => {
                     console.log('Recaptcha expired');
                 }
-            }, );
+            },);
             window.recaptchaVerifier.render();
         }
     };
 
     // Function to sign in with mobile number
     const signInWithMobile = async (mobileNum) => {
-         setupRecaptcha(); // Setup recaptcha before sign-in
+        setupRecaptcha(); // Setup recaptcha before sign-in
         const appVerifier = window.recaptchaVerifier;
         await signInWithPhoneNumber(FirebaseAuth, mobileNum, appVerifier)
             .then((confirmationResult) => {
@@ -165,6 +126,34 @@ export const FirebaseProvider = (props) => {
     };
 
     
+    const setArticles =  async (name, place, state, article, destPic) => {
+    
+        const imageRef = ref(storage, `uploads/articles/statePic/${Date.now()}-${destPic.name}`)
+        console.log("iamgeREf", imageRef);
+
+        const uploadStatePic = await uploadBytes(imageRef, destPic)
+        console.log("uploadStatePic", uploadStatePic);
+
+        return await addDoc(collection(FireStore, "articles"), {
+            name,
+            place,
+            state,
+            article,
+            imageURL: uploadStatePic.ref.fullPath,
+            userID: user.uid,
+            userEmail: user.email,
+            displayName: user.displayName,
+            profilPic: user.photoURL,
+            writtenOn: Date.now(),
+
+        })
+    }
+    
+    const getArticles = async () => {
+        return getDocs(collection(FireStore, "articles"))
+    }
+
+
     return (
 
         <FirebaseContext.Provider
@@ -176,6 +165,8 @@ export const FirebaseProvider = (props) => {
                 signInWithMobile,
                 verifyOTP,
                 setupRecaptcha,
+                setArticles,
+                getArticles,
             }}
         >
             {props.children}

@@ -1,7 +1,7 @@
 .hero-container {
     position: relative;
     height: 87vh;
-    overflow: auto;
+    overflow: hidden;
 
 }
 
