@@ -1,12 +1,10 @@
 import React from 'react'
 import Form from '../components/Form.components'
-import { Navbar } from 'react-bootstrap'
 
 const BlogForm = () => {
   return (
-    
       <Form />
   )
 }
 
-export default BlogForm
+export default BlogForm;
