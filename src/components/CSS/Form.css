@@ -1,13 +1,56 @@
 .blog-form {
-    background-color: #71c6d5; /* Light background color for the form */
-    padding: 20px;
+    background-color: #9ecfe7;
+    padding: 10px;
+    margin: 20px 0 50px 200px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     gap: 15px;
-    width: 1750px; /* Adjust width as needed */
+    width: 100%;
+    max-width: 900px;
+    box-sizing: border-box;
+    
 }
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    background-color: #1d81ec;
+    color: white;
+    border-radius: 4px;
+    border: 1px solid #056fe1;
+    transition: background-color 0.3s;
+}
+
+.custom-file-upload:hover {
+    background-color: #0056b3;
+}
+
+.file-name {
+    margin-left: 10px;
+    font-style: italic;
+}
+
+/* Button.css */
+.share-button {
+    display: flex;
+    align-items: center;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .share-icon {
+    margin-left: 10px;
+    font-size: 20px;
+  }
+  
 
 .blog-form input[type="text"],
 .blog-form input[type="number"],
@@ -19,19 +62,22 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 14px;
+    box-sizing: border-box;
 }
 
 .blog-form input[type="file"] {
     padding: 10px;
+    border-radius: 20px;
+    cursor: pointer;
 }
 
 .blog-form textarea {
-    height: 100px;
+    height: 300px;
     resize: vertical;
 }
 
 .blog-form button {
-    background-color: #004680; /* Dark blue color for the button */
+    background-color: #1f74b9;
     color: white;
     border: none;
     cursor: pointer;
@@ -41,14 +87,15 @@
     transition: background-color 0.3s ease;
     justify-content: center;
     align-items: center;
-    width: 500px;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
 }
 
 .blog-form button:hover {
-    background-color: #003366; /* Darker blue for hover effect */
+    background-color: #155390;
 }
 
-/* Styling for the text above the form */
 .blog-form-header {
     font-size: 18px;
     font-weight: bold;
@@ -65,4 +112,33 @@
 .blog-form h2 {
     padding-top: 20px;
     text-decoration: dashed;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .blog-form {
+        padding: 15px;
+        gap: 10px;
+    }
+
+    .blog-form button {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .blog-form {
+        padding: 10px;
+        gap: 8px;
+    }
+
+    .blog-form-header {
+        font-size: 16px;
+    }
+
+    .blog-form button {
+        font-size: 12px;
+        padding: 6px;
+    }
 }

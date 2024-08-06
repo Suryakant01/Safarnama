@@ -27,11 +27,10 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/destination" element={<DestinationPage />} />
         <Route path="/gallery" element={<Gallery />} />
-        <Route path="/blog" element={<h1>blog Page</h1>} />
+        <Route path="/blog" element={<BlogForm />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/phone" element={<PhoneAuth />} />
-        <Route path="/submit-blog" element={<BlogForm />} />
       </Routes>
       <Footer />
     </div>
