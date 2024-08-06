@@ -13,6 +13,7 @@ import LoginPage from './pages/Login.pages';
 import RegisterPage from './pages/Register.pages';
 import DestinationPage from './pages/Destination.pages';
 import BlogForm from './pages/BlogForm.pages';
+import AnimatedComponent from './pages/About.pages';
 
 //CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -32,6 +33,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/phone" element={<PhoneAuth />} />
         <Route path="/submit-blog" element={<BlogForm />} />
+        <Route path="/about" element={<AnimatedComponent />} />
       </Routes>
       <Footer />
     </div>

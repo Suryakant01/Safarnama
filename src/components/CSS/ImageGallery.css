@@ -50,14 +50,14 @@
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
-  background-color: #002a69; /* Adjust this color as needed */
-  color: white;
+  background-color: #dadfe7; /* Adjust this color as needed */
+  color: rgb(10, 9, 9);
   border: none;
   border-radius: 5px;
   transition: background-color 0.3s ease;
 }
 
 .view-gallery-button:hover {
-  background-color: #1a0a7d; /* Adjust this color as needed */
+  background-color: #475da7; /* Adjust this color as needed */
   
 }
