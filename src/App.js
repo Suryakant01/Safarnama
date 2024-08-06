@@ -5,7 +5,7 @@ import MyNavbar from './components/Navbar.components';
 import Footer from './components/Footer.components';
 import PhoneAuth from './components/PhoneAuth.comp.auth';
 import HeroSection from './components/HeroSection.components';
-
+import Gallery from './components/Gallery.components';
 
 //Pages
 import HomePage from './pages/Home.pages';
@@ -26,7 +26,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/destination" element={<DestinationPage />} />
-        <Route path="/gallery" element={<h1>gallery Page</h1>} />
+        <Route path="/gallery" element={<Gallery />} />
         <Route path="/blog" element={<h1>blog Page</h1>} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
