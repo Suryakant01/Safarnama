@@ -1,10 +1,11 @@
 import {React, useEffect, useState} from 'react'
 import { useFirebase } from '../context/firebase.context';
-import Cards from './Card.components'
+import { useNavigate } from 'react-router-dom';
 import { Card, CardGroup, Row, Col, Button } from "react-bootstrap";
 
 const DestinationSection = (props) => {
     const firebase = useFirebase();
+    const navigate = useNavigate();
 
     const [url, setURL] = useState(null);
 
@@ -20,7 +21,7 @@ const DestinationSection = (props) => {
             <Card.Img variant="top" src={url} />
             <Card.Body>
                 <Card.Title>{props.state}</Card.Title>
-                <Button variant="primary">See More</Button>
+                <Button variant="primary" onClick={() => navigate(props.link)} >See More</Button>
 
             </Card.Body>
         </Card>

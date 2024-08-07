@@ -55,7 +55,7 @@ const HomePage = () => {
                         
                             {articles.map((articles, index) => (
                                 <Col key={articles.id} sm={12} md={6} lg={4} className="mb-4">
-                                    <DestinationSection key={articles.id} title={articles.data().state} image={articles.data().imageURL} {...articles.data()} />
+                                    <DestinationSection key={articles.id} link={`/blogs/${articles.data().state}/all-blogs`} image={articles.data().imageURL} {...articles.data()} />
                                 </Col>
                             ))}
                             </Row>

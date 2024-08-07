@@ -125,18 +125,18 @@ export const FirebaseProvider = (props) => {
         });
     };
 
-    
-    const setArticles =  async (name, place, state, article, destPic) => {
-    
+
+    const setArticles = async (name, place, state, article, destPic) => {
+
         const imageRef = ref(storage, `uploads/articles/statePic/${Date.now()}-${destPic.name}`)
         console.log("iamgeREf", imageRef);
 
         const metadata = {
             contentType: destPic.type, // Ensure this is set to the correct MIME type
         };
-        const uploadStatePic = await uploadBytes(imageRef, destPic, metadata )
+        const uploadStatePic = await uploadBytes(imageRef, destPic, metadata)
         console.log("uploadStatePic", uploadStatePic);
-        
+
 
         return await addDoc(collection(FireStore, "articles"), {
             name,
@@ -152,20 +152,25 @@ export const FirebaseProvider = (props) => {
                 day: '2-digit',
                 month: 'short',
                 year: 'numeric'
-              }),
+            }),
 
         })
     }
-    
+
     const getArticles = async () => {
-        return  await getDocs(collection(FireStore, "articles"))
+        return await getDocs(collection(FireStore, "articles"))
+    }
+
+    const getStateBlogs = async (state) => {
+        console.log("articles for particular state")
+    // return await get
     }
 
     const getImageURL = (path) => {
         return getDownloadURL(ref(storage, path))
     }
 
-    const deleteArticles =  async (articleID) => {
+    const deleteArticles = async (articleID) => {
         await deleteDoc(doc(FireStore, "articles", articleID))
         console.log(`article - ${articleID} deleted`)
     }
@@ -185,6 +190,7 @@ export const FirebaseProvider = (props) => {
                 getArticles,
                 getImageURL,
                 deleteArticles,
+                getStateBlogs
             }}
         >
             {props.children}
