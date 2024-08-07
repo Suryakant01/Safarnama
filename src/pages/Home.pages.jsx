@@ -36,14 +36,7 @@ const HomePage = () => {
     // console.log(articles.data())
     return (
         <div>
-            <HeroSection 
-                mediaSource="https://firebasestorage.googleapis.com/v0/b/safarnama-c075f.appspot.com/o/Assets%2FtravelVideo.mp4?alt=media&token=253087a6-9e38-4acb-ba81-74617f958810"
-                mediaType="video"
-                title="Explore. Dream. Discover"
-                subtitle="Uncovering Hidden Gems Around the World"
-                buttonText="Start Exploring"
-
-            />
+            <HeroSection/>
             {loading ?
                 ( <>
                     {
@@ -56,12 +49,13 @@ const HomePage = () => {
                 :
                 (
                     <CardGroup>
+                        <h1 className='container mb-5' style={{ fontWeight: "bold" }}>DESTINATION</h1>
                         <Row>
 
                         
                             {articles.map((articles, index) => (
                                 <Col key={articles.id} sm={12} md={6} lg={4} className="mb-4">
-                                    <Cards key={articles.id} title={articles.data().state} image={articles.data().imageURL} {...articles.data()} />
+                                    <DestinationSection key={articles.id} title={articles.data().state} image={articles.data().imageURL} {...articles.data()} />
                                 </Col>
                             ))}
                             </Row>
@@ -69,7 +63,7 @@ const HomePage = () => {
                 )
             }
             
-            <ImageGallery />
+            <ImageGallery/>
             <Write />
         </div>
     )

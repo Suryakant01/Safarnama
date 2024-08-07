@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../components/CSS/ImageGallery.css';
 
 const ImageGallery = () => {
@@ -16,7 +17,9 @@ const ImageGallery = () => {
 
                 <h2>IMAGE GALLERY</h2>
                 <p>Something about the image gallery in 2-3 lines</p>
-                <button className="view-gallery-button">VIEW IMAGE GALLERY &rarr;</button>
+                <Link to={"/gallery"}>
+                <button className="view-gallery-button" >VIEW IMAGE GALLERY &rarr;</button>
+                </Link>
 
             </div>
 
