@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useFirebase } from "../context/firebase.context.jsx";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faShare} from '@fortawesome/free-solid-svg-icons'
+import { faShare } from '@fortawesome/free-solid-svg-icons';
 import '../components/CSS/Form.css';
 
 const Form = () => {
@@ -11,6 +11,17 @@ const Form = () => {
     const [state, setState] = useState('');
     const [article, setArticle] = useState('');
     const [destPic, setDestPic] = useState(null);
+
+    const indianStates = [
+        "Andaman and Nicobar Islands", "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", 
+        "Chandigarh", "Chhattisgarh", "Dadra and Nagar Haveli and Daman and Diu", "Delhi", 
+        "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jammu and Kashmir", "Jharkhand", 
+        "Karnataka", "Kerala", "Ladakh", "Lakshadweep", "Madhya Pradesh", "Maharashtra", 
+        "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Puducherry", "Punjab", 
+        "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", 
+        "Uttarakhand", "West Bengal"
+    ];
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -28,7 +39,15 @@ const Form = () => {
                 </h2>
                 <input type='text' value={name} onChange={(e) => setName(e.target.value)} placeholder='How should people know you?' required />
                 <input type='text' value={place} onChange={(e) => setPlace(e.target.value)} placeholder='Beautiful Place You Travelled to..' required />
-                <input type='text' value={state} onChange={(e) => setState(e.target.value)} placeholder='State it falls in..' required />
+                
+                <select className='selectState' value={state} onClick={() => {console.log(state)}} onChange={(e) => setState(e.target.value)} required>
+                    <option value="" disabled>State it falls in..</option>
+                    {indianStates.map((state, index) => (
+                        <option key={index} value={state}>{state}</option>
+                    ))}
+                </select>
+
+
                 <textarea value={article} onChange={(e) => setArticle(e.target.value)} placeholder='Your Amazing experience!!!' required />
                 
                 <input type='file' id='file' onChange={(e) => setDestPic(e.target.files[0])} style={{ display: 'none' }} />

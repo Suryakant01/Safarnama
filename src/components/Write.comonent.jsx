@@ -8,7 +8,7 @@ const Write = () => {
         <div className='write-blog-container'>
             <div className='text-section'>
                 <h1>Want to tell about your journey??</h1>
-                <Link to="/submit-blog">
+                <Link to="/blog">
                     <button className='write-blog-button'>Write Blog &rarr;</button>
                 </Link>
             </div>

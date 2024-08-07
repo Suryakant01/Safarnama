@@ -19,22 +19,22 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <MyNavbar />
-      
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/destination" element={<DestinationPage />} />
-        <Route path="/gallery" element={<Gallery />} />
-        <Route path="/blog" element={<BlogForm />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/phone" element={<PhoneAuth />} />
-      </Routes>
-      <Footer />
-    </div>
-  );
+    return (
+        <div className="App">
+            <MyNavbar />
+            <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/destination" element={<DestinationPage />} />
+                <Route path="/gallery" element={<Gallery />} />
+                <Route path="/blog" element={<BlogForm />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} />
+                <Route path="/phone" element={<PhoneAuth />} />
+                <Route path="/allblogs" element={<h1>all blogs</h1>} />
+            </Routes>
+            <Footer />
+        </div>
+    );
 }
 
 export default App;

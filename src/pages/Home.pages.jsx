@@ -60,11 +60,7 @@ const HomePage = () => {
 
                         
                             {articles.map((articles, index) => (
-                            
-
                                 <Col key={articles.id} sm={12} md={6} lg={4} className="mb-4">
-                                
-                            
                                     <Cards key={articles.id} title={articles.data().state} image={articles.data().imageURL} {...articles.data()} />
                                 </Col>
                             ))}
