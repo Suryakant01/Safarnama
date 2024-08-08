@@ -1,0 +1,24 @@
+/* TravelCarousel.css */
+  /* Align the carousel to the center of the page */
+  .about-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #eaeef3;
+  }
+  .bg{
+    background-color: aquamarine;
+    height: 300px;
+    width: 50px;
+    border-radius: 5px;
+    border-color: black;
+  }
+  h3 {
+    font-size: 2rem;
+  }
+  
+  p {
+    font-size: 1.2rem;
+  }
+  
