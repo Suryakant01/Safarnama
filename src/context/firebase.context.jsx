@@ -12,7 +12,7 @@ import {
     signInWithPhoneNumber,
     signOut,
 } from "firebase/auth";
-import { getFirestore, serverTimestamp, doc, getDoc, getDocs, addDoc, collection, query, where, deleteDoc } from "firebase/firestore"
+import { getFirestore, serverTimestamp, doc, getDoc, getDocs, addDoc, collection, query, where, deleteDoc, Firestore } from "firebase/firestore"
 
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage"
 
@@ -131,14 +131,10 @@ export const FirebaseProvider = (props) => {
         const imageRef = ref(storage, `uploads/articles/statePic/${Date.now()}-${destPic.name}`)
         console.log("iamgeREf", imageRef);
 
-        const metadata = {
-            contentType: destPic.type, // Ensure this is set to the correct MIME type
-        };
-        const uploadStatePic = await uploadBytes(imageRef, destPic, metadata)
+        const uploadStatePic = await uploadBytes(imageRef, destPic)
         console.log("uploadStatePic", uploadStatePic);
 
-
-        return await addDoc(collection(FireStore, "articles"), {
+        return await addDoc(collection(FireStore, "articles",state,"places"), {
             name,
             place,
             state,
@@ -158,12 +154,18 @@ export const FirebaseProvider = (props) => {
     }
 
     const getArticles = async () => {
-        return await getDocs(collection(FireStore, "articles"))
+        return await getDocs(collection(FireStore, "articles/states/places"))
+    }
+    
+    const setStateBlogs = async (state) => {
+        return await addDoc(collection(FireStore, `articles`), {
+            state,
+        })
     }
 
-    const getStateBlogs = async (state) => {
+    const getAllStateBlogs = async (state) => {
         console.log("articles for particular state")
-    // return await get
+        return await getDocs(collection(Firestore, "articles", state))
     }
 
     const getImageURL = (path) => {
@@ -190,7 +192,9 @@ export const FirebaseProvider = (props) => {
                 getArticles,
                 getImageURL,
                 deleteArticles,
-                getStateBlogs
+                getAllStateBlogs,
+                setStateBlogs,
+
             }}
         >
             {props.children}
