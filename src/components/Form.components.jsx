@@ -25,11 +25,6 @@ const Form = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await firebase.setStateBlogs(state).then(
-            () => {
-                console.log('state added')
-            }
-        )
         await firebase.setArticles(name, place, state, article, destPic)
             .then(() => {
                 console.log("Article added");
