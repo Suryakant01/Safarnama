@@ -131,12 +131,8 @@ export const FirebaseProvider = (props) => {
         const imageRef = ref(storage, `uploads/articles/statePic/${Date.now()}-${destPic.name}`)
         console.log("iamgeREf", imageRef);
 
-        const metadata = {
-            contentType: destPic.type, // Ensure this is set to the correct MIME type
-        };
-        const uploadStatePic = await uploadBytes(imageRef, destPic, metadata)
+        const uploadStatePic = await uploadBytes(imageRef, destPic)
         console.log("uploadStatePic", uploadStatePic);
-
 
         return await addDoc(collection(FireStore, "articles"), {
             name,
@@ -159,11 +155,6 @@ export const FirebaseProvider = (props) => {
 
     const getArticles = async () => {
         return await getDocs(collection(FireStore, "articles"))
-    }
-
-    const getStateBlogs = async (state) => {
-        console.log("articles for particular state")
-    // return await get
     }
 
     const getImageURL = (path) => {
@@ -190,7 +181,6 @@ export const FirebaseProvider = (props) => {
                 getArticles,
                 getImageURL,
                 deleteArticles,
-                getStateBlogs
             }}
         >
             {props.children}
