@@ -15,7 +15,7 @@ const Cards = (props) => {
     console.log("props", props)
     return (
 
-        <Card className='container mr-0 pr-0' style={{ width: '18rem', }}>
+        <Card  style={{ width: '18rem', }}>
             <Card.Img variant="top" src={url} />
             <Card.Body>
                 <Card.Title>{props.title}</Card.Title>                

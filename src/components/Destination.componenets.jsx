@@ -14,20 +14,17 @@ const DestinationSection = (props) => {
     }, [firebase, props.imageURL])
 
     return (
-        <div className='container'>
-            {/* <h1 className='mt-5 mb-5' style={{ fontWeight: "bold" }}>DESTINATION</h1> */}
-
-            <Card className='container mr-0 pr-0' style={{ width: '18rem', }}>
-            <Card.Img variant="top" src={url} />
+        <>        
+            <Card className='h-100' >
+            <Card.Img variant="top" src={url} style={{ height: '200px', objectFit: 'cover' }} 
+                    alt={props.state}/>
             <Card.Body>
                 <Card.Title>{props.state}</Card.Title>
                 <Button variant="primary" onClick={() => navigate(props.link)} >See More</Button>
-
             </Card.Body>
         </Card>
 
-            {/* <Button variant="outline-light" style={{ backgroundColor: "#112D58", height: "9vh", width: "27vh", fontWeight: "bold", borderRadius: "20px" }} className='mb-4 mt-4'>More Destination &#8594;</Button> */}
-        </div>
+        </>
     )
 }
 

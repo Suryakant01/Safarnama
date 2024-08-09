@@ -157,6 +157,32 @@ export const FirebaseProvider = (props) => {
         return await getDocs(collection(FireStore, "articles"))
     }
 
+    const getStateBlogs = async (state) => {
+        try {
+            const articlesRef = collection(FireStore, 'articles');
+            const q = query(articlesRef, where('state', '==', state));
+            const querySnapshot = await getDocs(q);
+    
+            if (querySnapshot.empty) {
+                return [];
+            }
+    
+            // const blogs = [];
+            // querySnapshot.forEach((doc) => {
+            //     blogs.push({
+            //         id: doc.id,
+            //         ...doc.data()
+            //     });
+            // });
+            return querySnapshot;
+            // return blogs;
+        } catch (error) {
+            console.error('Error getting blogs: ', error);
+            throw new Error('Error getting blogs');
+        }
+        // console.log(" partic. state blogs")
+    }
+
     const getImageURL = (path) => {
         return getDownloadURL(ref(storage, path))
     }
@@ -181,6 +207,7 @@ export const FirebaseProvider = (props) => {
                 getArticles,
                 getImageURL,
                 deleteArticles,
+                getStateBlogs,
             }}
         >
             {props.children}

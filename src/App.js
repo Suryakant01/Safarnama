@@ -17,7 +17,7 @@ import BlogForm from './pages/BlogForm.pages';
 //CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import StateBlogs from './pages/SateBlogs.pages';
+import StateBlogs from './pages/StateBlogs.pages';
 
 function App() {
     return (
