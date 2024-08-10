@@ -37,7 +37,10 @@ const MyNavbar = () => {
                         <Nav.Link href="/" style={{fontWeight: "bold"}}>Home</Nav.Link>
                         <Nav.Link href="/destination" style={{fontWeight: "bold"}}>Destination</Nav.Link>
                         <Nav.Link href="/gallery" style={{fontWeight: "bold"}}>Gallery</Nav.Link>
-                        <Nav.Link href="/blog" style={{fontWeight: "bold"}}>Write</Nav.Link>        
+                        <Nav.Link href="/blog" style={{fontWeight: "bold"}}>Write</Nav.Link>
+                        <Nav.Link href="/about" style={{fontWeight: "bold"}}>About</Nav.Link>
+                        <Nav.Link href="/contact" style={{fontWeight: "bold"}}>Contact Us</Nav.Link>
+                    
                     </Nav>
 
                     {firebase.isLoggedIn ? 
