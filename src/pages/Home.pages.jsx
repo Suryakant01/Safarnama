@@ -16,13 +16,12 @@ const HomePage = () => {
     const [currentImageIndex, setCurrentImageIndex] = useState({});
 
     useEffect(() => {
-        // Simulate a data fetching
+
+        //simulate data fetching
         setTimeout(() => {
             setLoading(false);
         }, 2500);
-    }, []);
 
-    useEffect(() => {
         firebase.getArticles().then((articles) => {
             setArticles(articles.docs);
 
@@ -84,7 +83,7 @@ const HomePage = () => {
                                     <Col key={currentArticle.id} sm={12} md={6} lg={4} className='mb-4'>
                                         <DestinationSection
                                             key={currentArticle.id}
-                                            link={`/blogs/${currentArticle.data().state}/all-blogs`}
+                                            link={`/blogs/${currentArticle.data().state}`}
                                             image={currentArticle.data().imageURL}
                                             {...currentArticle.data()}
                                         />

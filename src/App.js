@@ -13,11 +13,12 @@ import LoginPage from './pages/Login.pages';
 import RegisterPage from './pages/Register.pages';
 import DestinationPage from './pages/Destination.pages';
 import BlogForm from './pages/BlogForm.pages';
+import StateBlogs from './pages/StateBlogs.pages';
+import BlogPage from './pages/BlogPage.pages';
 
 //CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import StateBlogs from './pages/StateBlogs.pages';
 
 function App() {
     return (
@@ -25,7 +26,8 @@ function App() {
             <MyNavbar />
             <Routes>
                 <Route path="/" element={<HomePage />} />
-                <Route path="/blogs/:states/all-blogs" element={<StateBlogs />} />
+                <Route path="/blogs/:states" element={<StateBlogs />} />
+                <Route path="/blogs/:states/:place" element={<BlogPage />} />
                 <Route path="/destination" element={<DestinationPage />} />
                 <Route path="/gallery" element={<Gallery />} />
                 <Route path="/blog" element={<BlogForm />} />

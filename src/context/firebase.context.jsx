@@ -12,7 +12,7 @@ import {
     signInWithPhoneNumber,
     signOut,
 } from "firebase/auth";
-import { getFirestore, serverTimestamp, doc, getDoc, getDocs, addDoc, collection, query, where, deleteDoc } from "firebase/firestore"
+import { getFirestore, serverTimestamp, doc, getDoc, getDocs, addDoc, collection, query, where, deleteDoc, Firestore } from "firebase/firestore"
 
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage"
 
@@ -166,21 +166,27 @@ export const FirebaseProvider = (props) => {
             if (querySnapshot.empty) {
                 return [];
             }
-    
-            // const blogs = [];
-            // querySnapshot.forEach((doc) => {
-            //     blogs.push({
-            //         id: doc.id,
-            //         ...doc.data()
-            //     });
-            // });
             return querySnapshot;
-            // return blogs;
         } catch (error) {
             console.error('Error getting blogs: ', error);
             throw new Error('Error getting blogs');
         }
-        // console.log(" partic. state blogs")
+    }
+
+    const getPlaceBlog = async (place) => {
+        try {
+            const blogRef = collection(FireStore, "articles")
+            const q = query(blogRef, where("place", "==", place))
+            const blogDetails = await getDocs(q)
+
+            if (blogDetails.empty) {
+                return []
+            }
+            return blogDetails;
+        } catch (error) {
+            console.error('Error getting blogs: ', error);
+            throw new Error('Error getting blogs');
+        }
     }
 
     const getImageURL = (path) => {
@@ -208,6 +214,7 @@ export const FirebaseProvider = (props) => {
                 getImageURL,
                 deleteArticles,
                 getStateBlogs,
+                getPlaceBlog,
             }}
         >
             {props.children}
