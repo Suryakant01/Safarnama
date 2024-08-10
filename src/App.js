@@ -34,8 +34,8 @@ function App() {
                 <Route path="/blog" element={<BlogForm />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
-          <Route path="/phone" element={<PhoneAuth />} />
-          <Route path="/about" element={<About />} />
+                <Route path="/phone" element={<PhoneAuth />} />
+                <Route path="/about" element={<About />} />
                 <Route path="/allblogs" element={<h1>all blogs</h1>} />
             </Routes>
             <Footer />
