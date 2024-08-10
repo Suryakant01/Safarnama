@@ -4,6 +4,8 @@ import { getAnalytics } from "firebase/analytics";
 
 import {
     getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
     onAuthStateChanged,
     GoogleAuthProvider,
     signInWithPopup,
@@ -60,7 +62,9 @@ export const FirebaseProvider = (props) => {
 
     const signInWithGoogle = () => signInWithPopup(FirebaseAuth, googleAuth);
 
+    const signUpUserWithEmail = (email, pass) => createUserWithEmailAndPassword(FireStore,email, pass)
 
+    const signInUserWithEmail = (email, pass) => signInWithEmailAndPassword(email, pass)
 
     const singInWithEmailLink = (email) =>
         sendSignInLinkToEmail(FirebaseAuth, email, actionCodeSettings)
@@ -202,6 +206,8 @@ export const FirebaseProvider = (props) => {
 
         <FirebaseContext.Provider
             value={{
+                signUpUserWithEmail,
+                signInUserWithEmail,
                 signInWithGoogle,
                 singInWithEmailLink,
                 isLoggedIn,
