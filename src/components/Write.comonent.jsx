@@ -19,7 +19,7 @@ const Write = () => {
                 ease: 'power2.inOut', // Adjust easing for smoother or more dynamic effect
                 scrollTrigger: {
                     trigger: imageRef.current,
-                    start: 'top 85%', // Adjust to trigger earlier or later
+                    start: 'top 90%', // Adjust to trigger earlier or later
                     end: 'top 40%',   // Adjust to control when the animation ends
                     scrub: 1 // Adjust scrub value for more/less smoothness
                 }

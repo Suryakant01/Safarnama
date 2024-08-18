@@ -7,16 +7,25 @@ const BlogPage = () => {
     const params = useParams();
     const firebase = useFirebase();
     const [blog, setBlog] = useState(null);
+    const [img , setImg] = useState(null)
+
 
     console.log(params)
     useEffect(() => {
-        
-        firebase.getPlaceBlog(params.place).then((doc) => {
-            if (doc.exists) {
-                setBlog(doc.data());
+        firebase.getPlaceBlogId(params.id).then((blogData) => {
+            if (blogData) {
+                setBlog(blogData);
+            } else {
+                console.log("Blog not found");
             }
         });
     }, [firebase, params.place]);
+
+    useEffect(() => {
+        if (blog && blog.imageURL) {
+            firebase.getImageURL(blog.imageURL).then((img) => setImg(img))
+        }
+    }, [firebase, blog])
 
     if (!blog) {
         return <p>Loading...</p>; // Show a loading message while fetching the blog
@@ -39,19 +48,19 @@ const BlogPage = () => {
                         />
                         <div className="ms-3">
                             <h5 style={{ margin: 0 }}>{blog.name}</h5>
-                            <p style={{ margin: 0, color: 'gray' }}>{new Date(blog.writtenOnDate).toLocaleDateString()}</p>
+                            <p style={{ margin: 0, color: 'gray' }}>{blog.writtenOnDate}</p>
                         </div>
                     </div>
 
                     <Image
-                        src={blog.writtenOnDate}
+                        src={img}  // Fetch the correct image URL
                         fluid
                         style={{ width: '100%', height: 'auto', marginBottom: '2rem', borderRadius: '10px' }}
-                        alt={blog.title}
+                        alt={blog.place}
                     />
 
                     <article style={{ lineHeight: '1.8', fontSize: '1.1rem' }}>
-                        {blog.content.split('\n').map((paragraph, idx) => (
+                        {blog.article.split('\n').map((paragraph, idx) => (
                             <p key={idx} style={{ marginBottom: '1.5rem' }}>
                                 {paragraph}
                             </p>

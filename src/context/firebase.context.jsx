@@ -177,21 +177,46 @@ export const FirebaseProvider = (props) => {
         }
     }
 
-    const getPlaceBlog = async (place) => {
-        try {
-            const blogRef = collection(FireStore, "articles")
-            const q = query(blogRef, where("place", "==", place))
-            const blogDetails = await getDocs(q)
+    //Not used due to bug leaving for future me to remember mistake
+    // const getPlaceBlog = async (place) => {
+    //     try {
+    //         const blogRef = collection(FireStore, "articles")
+    //         const q = query(blogRef, where("place", "==", place))
+    //         const blogDetails = await getDocs(q)
 
-            if (blogDetails.empty) {
-                return []
+    //         // if (blogDetails.empty) {
+    //         //     console.log("fn working")
+    //         //     return []
+    //         // }
+            
+    //         console.log("working")
+    //         console.log("blogDetails.docs[0].data()",blogDetails.docs[0].data())
+    //         return blogDetails.docs[0].data();
+    //     } catch (error) {
+    //         console.error('Error getting blogs: ', error);
+    //         throw new Error('Error getting blogs');
+    //     }
+    // }
+
+    //no bug here 
+    const getPlaceBlogId = async (id) => {
+        try {
+            const blogRef = doc(FireStore, "articles", id);
+            const blogDoc = await getDoc(blogRef);
+    
+            if (!blogDoc.exists()) {
+                console.log("Blog not found");
+                return null;
             }
-            return blogDetails;
+            
+            return blogDoc.data();
+            
         } catch (error) {
-            console.error('Error getting blogs: ', error);
-            throw new Error('Error getting blogs');
+            console.error('Error getting blog: ', error);
+            throw new Error('Error getting blog');
         }
     }
+    
 
     const getImageURL = (path) => {
         return getDownloadURL(ref(storage, path))
@@ -220,7 +245,8 @@ export const FirebaseProvider = (props) => {
                 getImageURL,
                 deleteArticles,
                 getStateBlogs,
-                getPlaceBlog,
+                // getPlaceBlog,
+                getPlaceBlogId,
             }}
         >
             {props.children}

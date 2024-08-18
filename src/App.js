@@ -4,7 +4,6 @@ import { Route, Routes } from 'react-router-dom';
 import MyNavbar from './components/Navbar.components';
 import Footer from './components/Footer.components';
 import PhoneAuth from './components/PhoneAuth.comp.auth';
-import HeroSection from './components/HeroSection.components';
 import Gallery from './components/Gallery.components';
 
 //Pages
@@ -28,7 +27,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/blogs/:states" element={<StateBlogs />} />
-                <Route path="/blogs/:states/:place" element={<BlogPage />} />
+                <Route path="/blogs/:states/:id" element={<BlogPage />} />
                 <Route path="/destination" element={<DestinationPage />} />
                 <Route path="/gallery" element={<Gallery />} />
                 <Route path="/blog" element={<BlogForm />} />
@@ -36,7 +35,8 @@ function App() {
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/phone" element={<PhoneAuth />} />
                 <Route path="/about" element={<About />} />
-                <Route path="/allblogs" element={<h1>all blogs</h1>} />
+                <Route path="/allblogs" element={<h1>All blogs</h1>} />
+                <Route path="/hello-world" element = {<h1>Hello World</h1> } /> 
             </Routes>
             <Footer />
         </div>

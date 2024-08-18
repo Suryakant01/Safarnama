@@ -23,9 +23,9 @@ const StateBlogs = (props) => {
             <h1>All Blogs of {params.states} </h1>
             <CardGroup className='container'>
                 <Row className='container'>
-                    {stateBlogs.map((stateBlogs, index) => (
+                    {stateBlogs.map((stateBlogs) => (
                         <Col key={stateBlogs.id} sm={12} md={6} lg={4} className="mb-4">
-                            <Cards link={`${stateBlogs.data().place}`} image={stateBlogs.data().imageURL} {...stateBlogs.data()} />
+                            <Cards link={`${stateBlogs.id}`} image={stateBlogs.data().imageURL} {...stateBlogs.data()} />
                         </Col>
                     ))}
                 </Row>
