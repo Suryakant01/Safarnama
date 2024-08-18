@@ -35,6 +35,7 @@ function App() {
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/phone" element={<PhoneAuth />} />
                 <Route path="/about" element={<About />} />
+                <Route path="/contact-us" element={<h1>Contact Us</h1>} />
                 <Route path="/allblogs" element={<h1>All blogs</h1>} />
                 <Route path="/hello-world" element = {<h1>Hello World</h1> } /> 
             </Routes>

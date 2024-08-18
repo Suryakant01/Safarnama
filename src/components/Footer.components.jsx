@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Nav } from 'react-bootstrap';
 // import { FaIconName } from 'react-icons/fa';
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaGithub } from 'react-icons/fa';
+import { FaTwitter, FaLinkedin, FaGithub } from 'react-icons/fa';
 
 
 const Footer = () => {
@@ -15,9 +15,10 @@ const Footer = () => {
                     </Col>
                     <Col md={4}>
                         <h5>Quick Links</h5>
+                        <hr></hr>
                         <Nav className="flex-column">
                             <Nav.Link href="/" style={{ color: 'white' }}>Home</Nav.Link>
-                            <Nav.Link href="/destinations" style={{ color: 'white' }}>Destinations</Nav.Link>
+                            <Nav.Link href="/destination" style={{ color: 'white' }}>Destinations</Nav.Link>
                             <Nav.Link href="/gallery" style={{ color: 'white' }}>Gallery</Nav.Link>
                             <Nav.Link href="/contact" style={{ color: 'white' }}>Contact Us</Nav.Link>
                         </Nav>
