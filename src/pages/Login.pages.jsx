@@ -13,9 +13,11 @@ const LoginPage = () => {
     const [email, setEmail] = useState("");
 
 
-    if (firebase.isLoggedIn) {
-        navigate("/");
-    }
+    useEffect(() => {
+        if (firebase.isLoggedIn) {
+            navigate("/")
+        }
+    }, [firebase.isLoggedIn, navigate])
 
     const registerAcc = () => {
         navigate("/register");
@@ -29,50 +31,50 @@ const LoginPage = () => {
     };
 
 
-    
+
     return (
-       <div className="page">
-             {/* Email */}
+        <div className="page">
+            {/* Email */}
             <div className='image-section'>
                 <img src={`${process.env.PUBLIC_URL}/images/Loginimg.png`} alt="loginImg" className='login-image' />
             </div>
-         <div className="form">
-         <Form onSubmit={handleSubmit} >
-                <Form.Group className="formGroup" controlId="formBasicEmail">
-                    <Form.Label className="email">Email address</Form.Label>
-                    <Form.Control
-                        onChange={(e) => setEmail(e.target.value)}
-                        value={email}
-                        type="email"
-                        placeholder="Enter email"
-                    />
-                    <Form.Text className="text-muted">
-                        We'll never share your email with anyone else.
-                    </Form.Text>
-                </Form.Group>
-                
-                <Button variant="primary" type="submit">
-                    Login
-                </Button>
-            </Form>
+            <div className="form">
+                <Form onSubmit={handleSubmit} >
+                    <Form.Group className="formGroup" controlId="formBasicEmail">
+                        <Form.Label className="email">Email address</Form.Label>
+                        <Form.Control
+                            onChange={(e) => setEmail(e.target.value)}
+                            value={email}
+                            type="email"
+                            placeholder="Enter email"
+                        />
+                        <Form.Text className="text-muted">
+                            We'll never share your email with anyone else.
+                        </Form.Text>
+                    </Form.Group>
 
-            <h2 className="mt-5 mb-2">Other Methods</h2>
-            <Button
-                onClick={firebase.signInWithGoogle}
-                variant="danger"
-                type="submit"
-            >
-                Sign in With Google
-            </Button>
-            
-            <h4 className="mt-5 mb-2">Don't have an Account?</h4>
-            <Button onClick={registerAcc} variant="primary" type="submit" style={{marginBottom: "20px", display: "inline"}}>
-                Register Account
-            </Button>
-         </div>
-            
+                    <Button variant="primary" type="submit">
+                        Login
+                    </Button>
+                </Form>
+
+                <h2 className="mt-5 mb-2">Other Methods</h2>
+                <Button
+                    onClick={firebase.signInWithGoogle}
+                    variant="danger"
+                    type="submit"
+                >
+                    Sign in With Google
+                </Button>
+
+                <h4 className="mt-5 mb-2">Don't have an Account?</h4>
+                <Button onClick={registerAcc} variant="primary" type="submit" style={{ marginBottom: "20px", display: "inline" }}>
+                    Register Account
+                </Button>
+            </div>
+
         </div>
-       
+
     );
 };
 

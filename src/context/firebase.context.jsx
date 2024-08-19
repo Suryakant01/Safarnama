@@ -27,7 +27,7 @@ const firebaseConfig = {
     storageBucket: "safarnama-c075f.appspot.com",
     messagingSenderId: "813604453737",
     appId: "1:813604453737:web:1feb3dc008d28e52c0d1f8",
-    measurementId: "G-Y27FSW4K5D",
+    measurementId: "G-Y27FSW4K5D"
 };
 
 const FirebaseApp = initializeApp(firebaseConfig);
@@ -41,7 +41,6 @@ export const useFirebase = () => useContext(FirebaseContext);
 
 const actionCodeSettings = {
     url: 'http://localhost:3000/',
-    // This must be true.
     handleCodeInApp: true,
 };
 
@@ -62,9 +61,9 @@ export const FirebaseProvider = (props) => {
 
     const signInWithGoogle = () => signInWithPopup(FirebaseAuth, googleAuth);
 
-    const signUpUserWithEmail = (email, pass) => createUserWithEmailAndPassword(FireStore,email, pass)
+    const signUpUserWithEmail = (email, pass) => createUserWithEmailAndPassword(FirebaseAuth, email, pass)
 
-    const signInUserWithEmail = (email, pass) => signInWithEmailAndPassword(email, pass)
+    const signInUserWithEmail = (email, pass) => signInWithEmailAndPassword(FirebaseAuth, email, pass)
 
     const singInWithEmailLink = (email) =>
         sendSignInLinkToEmail(FirebaseAuth, email, actionCodeSettings)
@@ -166,7 +165,7 @@ export const FirebaseProvider = (props) => {
             const articlesRef = collection(FireStore, 'articles');
             const q = query(articlesRef, where('state', '==', state));
             const querySnapshot = await getDocs(q);
-    
+
             if (querySnapshot.empty) {
                 return [];
             }
@@ -188,7 +187,7 @@ export const FirebaseProvider = (props) => {
     //         //     console.log("fn working")
     //         //     return []
     //         // }
-            
+
     //         console.log("working")
     //         console.log("blogDetails.docs[0].data()",blogDetails.docs[0].data())
     //         return blogDetails.docs[0].data();
@@ -203,20 +202,20 @@ export const FirebaseProvider = (props) => {
         try {
             const blogRef = doc(FireStore, "articles", id);
             const blogDoc = await getDoc(blogRef);
-    
+
             if (!blogDoc.exists()) {
                 console.log("Blog not found");
                 return null;
             }
-            
+
             return blogDoc.data();
-            
+
         } catch (error) {
             console.error('Error getting blog: ', error);
             throw new Error('Error getting blog');
         }
     }
-    
+
 
     const getImageURL = (path) => {
         return getDownloadURL(ref(storage, path))
