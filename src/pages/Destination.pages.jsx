@@ -1,5 +1,6 @@
 import { React, useState, useEffect } from 'react';
-import { useFirebase } from "../context/firebase.context"
+// import { useFirebase } from "../context/firebase.context"
+import { useFirebase } from "../context/Firebase";
 import { NavLink } from 'react-router-dom';
 import { Container, CardGroup, Row, Col, Button } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
@@ -77,7 +78,7 @@ const DestinationPage = () => {
             {loading ?
                 (<>
                     {
-                        [...Array(6)].map((_, index) => (
+                        [...Array(12)].map((_, index) => (
                             <SkeletonLoader key={index} />
                         ))
                     }

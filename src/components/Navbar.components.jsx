@@ -1,5 +1,6 @@
 import React from "react";
-import { useFirebase } from "../context/firebase.context";
+// import { useFirebase } from "../context/firebase.context";
+import { useFirebase } from "../context/Firebase";
 import { motion } from 'framer-motion';
 import NavLink from "react-bootstrap";
 import Container from 'react-bootstrap/Container';

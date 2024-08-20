@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { FirebaseProvider } from './context/firebase.context';
+// import { FirebaseProvider } from './context/firebase.context';
+import { FirebaseProvider } from './context/Firebase';
 import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';

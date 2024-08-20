@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useFirebase } from '../context/firebase.context';
+// import { useFirebase } from '../context/firebase.context';
+import { useFirebase } from "../context/Firebase";
 import { Container, Image, Row, Col } from 'react-bootstrap';
 
 const BlogPage = () => {

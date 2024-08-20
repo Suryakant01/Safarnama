@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from "react-router-dom";
 import Cards from '../components/Card.components'
-import { useFirebase } from '../context/firebase.context'
+// import { useFirebase } from '../context/firebase.context'
+import { useFirebase } from "../context/Firebase";
 import { CardGroup, Row, Col } from "react-bootstrap";
 
 const StateBlogs = (props) => {

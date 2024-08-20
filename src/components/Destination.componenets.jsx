@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useFirebase } from '../context/firebase.context';
+// import { useFirebase } from '../context/firebase.context';
+import { useFirebase } from "../context/Firebase";
 import { useNavigate } from 'react-router-dom';
 import { Card, Button } from "react-bootstrap";
 
@@ -11,7 +12,7 @@ const DestinationSection = (props) => {
     const [isImageLoaded, setIsImageLoaded] = useState(false);
 
     useEffect(() => {
-        setIsImageLoaded(false);  // Reset image loading status when imageURL changes
+        setIsImageLoaded(false);
         firebase.getImageURL(props.imageURL).then((url) => {
             setURL(url);
         });
@@ -25,10 +26,9 @@ const DestinationSection = (props) => {
                         height: '200px',
                         overflow: 'hidden',
                         position: 'relative',
-                        backgroundColor: '#f0f0f0',  // Background color for placeholder
+                        backgroundColor: '#f0f0f0', 
                     }}
                 >
-                    {/* Placeholder image or loading indicator */}
                     {!isImageLoaded && (
                         <div
                             style={{
@@ -42,7 +42,6 @@ const DestinationSection = (props) => {
                         />
                     )}
 
-                    {/* Actual image with smooth transition */}
                     <Card.Img
                         variant="top"
                         src={url}
@@ -51,7 +50,7 @@ const DestinationSection = (props) => {
                         style={{
                             height: '200px',
                             objectFit: 'cover',
-                            opacity: isImageLoaded ? 1 : 0,
+                            opacity: isImageLoaded ? 0 : 1,
                             transition: 'opacity 0.4s ease-in-out',
                             position: 'absolute',
                             top: 0,

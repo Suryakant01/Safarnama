@@ -1,6 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import { useFirebase } from '../context/firebase.context';
+// import { useFirebase } from '../context/firebase.context';
+import { useFirebase } from "../context/Firebase";
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
