@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import PhoneInput from "react-phone-number-input"
-// import { useFirebase } from "../context/firebase.context.jsx";
-import { useFirebase } from "../context/Firebase";
+import { useFirebase } from "../context/firebase.context.jsx";
 
 const PhoneAuth = () => {
     const firebase = useFirebase();

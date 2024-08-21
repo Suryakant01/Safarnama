@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-// import { useFirebase } from '../context/firebase.context';
-import { useFirebase } from "../context/Firebase";
+import { useFirebase } from '../context/firebase.context';
 import { useNavigate } from 'react-router-dom';
 import { Card, Button } from "react-bootstrap";
 

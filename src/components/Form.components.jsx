@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-// import { useFirebase } from "../context/firebase.context.jsx";
-import { useFirebase } from "../context/Firebase";
+import { useFirebase } from "../context/firebase.context.jsx";
+import  Notification  from "./Notifications.components.jsx"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShare } from '@fortawesome/free-solid-svg-icons';
 import '../components/CSS/Form.css';
@@ -12,6 +12,9 @@ const Form = () => {
     const [state, setState] = useState('');
     const [article, setArticle] = useState('');
     const [destPic, setDestPic] = useState(null);
+    const [showNotification, setShowNotification] = useState(false);
+    const [notificationMessage, setNotificationMessage] = useState("");
+
 
     const indianStates = [
         "Andaman and Nicobar Islands", "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", 
@@ -28,12 +31,21 @@ const Form = () => {
         e.preventDefault();
         await firebase.setArticles(name, place, state, article, destPic)
             .then(() => {
-                console.log("Article added");
-            });
+                setNotificationMessage("Blog Added")
+                setShowNotification(true);
+                setTimeout(() => {
+                    setShowNotification(false);
+                }, 3000)
+            })
+            .catch(() => {
+                setNotificationMessage("Sorry, Try Again")
+                setShowNotification(true);
+            })
     };
 
     return (
         <div className='container'>
+            <Notification variant={"success"} show={showNotification} message={notificationMessage} onClose={() => setShowNotification(false)} />
             <form className='blog-form' onSubmit={handleSubmit}>
                 <h2 className='fw-bolder'>
                     Share your Experience

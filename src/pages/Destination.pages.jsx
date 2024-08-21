@@ -1,6 +1,5 @@
 import { React, useState, useEffect } from 'react';
-// import { useFirebase } from "../context/firebase.context"
-import { useFirebase } from "../context/Firebase";
+import { useFirebase } from "../context/firebase.context"
 import { NavLink } from 'react-router-dom';
 import { Container, CardGroup, Row, Col, Button } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';

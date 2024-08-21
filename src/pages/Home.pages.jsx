@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useFirebase } from "../context/Firebase";
+import { useFirebase } from '../context/firebase.context';
 import HeroSection from '../components/HeroSection.components';
 import DestinationSection from '../components/Destination.componenets';
 import ImageGallery from '../components/ImageGallery.components';

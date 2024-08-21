@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/esm/Button'
 import Form from "react-bootstrap/Form";
-// import { useFirebase } from '../context/firebase.context';
-import { useFirebase } from "../context/Firebase";
+import { useFirebase } from '../context/firebase.context';
 import GoogleButton from 'react-google-button'
 
 const RegisterPage = () => {

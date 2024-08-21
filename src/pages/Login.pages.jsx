@@ -4,9 +4,8 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import GoogleButton from 'react-google-button'
 import "../components/CSS/LoginPage.css";
+import { useFirebase } from "../context/firebase.context";
 
-// import { useFirebase } from "../context/firebase.context";
-import { useFirebase } from "../context/Firebase";
 
 const LoginPage = () => {
     
