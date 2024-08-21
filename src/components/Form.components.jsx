@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useFirebase } from "../context/firebase.context.jsx";
+import { useNavigate } from 'react-router-dom';
 import  Notification  from "./Notifications.components.jsx"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShare } from '@fortawesome/free-solid-svg-icons';
@@ -7,6 +8,7 @@ import '../components/CSS/Form.css';
 
 const Form = () => {
     const firebase = useFirebase();
+    const navigate = useNavigate();
     const [name, setName] = useState('');
     const [place, setPlace] = useState('');
     const [state, setState] = useState('');
@@ -42,6 +44,14 @@ const Form = () => {
                 setShowNotification(true);
             })
     };
+
+    console.log("loggin", firebase.isLoggedIn)
+    useEffect(() => {
+        if (firebase.isLoggedIn) {
+            navigate("/login")
+        }
+
+    }, [firebase.isLoggedIn])
 
     return (
         <div className='container'>

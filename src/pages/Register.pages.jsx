@@ -15,7 +15,7 @@ const RegisterPage = () => {
         e.preventDefault();
         console.log("registraion success")
         const result = await firebase.signUpUserWithEmail(email, password);
-        console.log(result);
+        // console.log(result);
     }
 
     useEffect(() => {

@@ -14,7 +14,7 @@ const Cards = (props) => {
         firebase.getImageURL(props.imageURL).then((url) => setURL(url))
     }, [firebase, props.imageURL])
 
-    console.log("props", props)
+    // console.log("props", props)
     return (
 
         <Card className='h-100' style={{ width: '18rem', }}>

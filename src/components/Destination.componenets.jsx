@@ -49,7 +49,7 @@ const DestinationSection = (props) => {
                         style={{
                             height: '200px',
                             objectFit: 'cover',
-                            opacity: isImageLoaded ? 0 : 1,
+                            opacity: isImageLoaded ? 1 : 0,
                             transition: 'opacity 0.4s ease-in-out',
                             position: 'absolute',
                             top: 0,

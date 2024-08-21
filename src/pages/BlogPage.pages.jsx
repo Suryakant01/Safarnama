@@ -10,7 +10,7 @@ const BlogPage = () => {
     const [img , setImg] = useState(null)
 
 
-    console.log(params)
+    // console.log(params)
     useEffect(() => {
         firebase.getPlaceBlogId(params.id).then((blogData) => {
             if (blogData) {

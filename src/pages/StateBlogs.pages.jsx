@@ -15,8 +15,8 @@ const StateBlogs = (props) => {
             .then((stateBlogs) => setStateBlogs(stateBlogs.docs))
     }, [firebase, params.states])
     
-    console.log("params", params)
-    console.log("stateblogs", stateBlogs.docs)
+    // console.log("params", params)
+    // console.log("stateblogs", stateBlogs.docs)
 
     return (
         <>

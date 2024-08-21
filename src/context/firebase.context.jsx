@@ -14,9 +14,9 @@ import {
     signInWithPhoneNumber,
     signOut,
 } from "firebase/auth";
-import { getFirestore, serverTimestamp, doc, getDoc, getDocs, addDoc, collection, query, where, deleteDoc, Firestore } from "firebase/firestore"
+import { getFirestore, serverTimestamp, doc, getDoc, getDocs, addDoc, collection, query, where, deleteDoc, Firestore } from "firebase/firestore";
 
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage"
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const FirebaseContext = createContext(null);
 
@@ -34,7 +34,7 @@ const FirebaseApp = initializeApp(firebaseConfig);
 const analytics = getAnalytics(FirebaseApp);
 const FirebaseAuth = getAuth(FirebaseApp);
 const googleAuth = new GoogleAuthProvider();
-const FireStore = getFirestore(FirebaseApp)
+const FireStore = getFirestore(FirebaseApp);
 const storage = getStorage(FirebaseApp);
 
 export const useFirebase = () => useContext(FirebaseContext);
@@ -44,139 +44,149 @@ const actionCodeSettings = {
     handleCodeInApp: true,
 };
 
-
 export const FirebaseProvider = (props) => {
-
     const [user, setUser] = useState(null);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
-        onAuthStateChanged(FirebaseAuth, (user) => {
-            if (user) {
-                setUser(user)
-            } else {
-                setUser(null)
-            }
-        })
-    }, [])
-
-    const signInWithGoogle = () => {
         try {
-            signInWithPopup(FirebaseAuth, googleAuth);
-        } catch (error) {
-            console.log("error in sigin with google")
-        }
-    }
-
-    const signUpUserWithEmail = (email, pass) => {
-        try {
-            createUserWithEmailAndPassword(FirebaseAuth, email, pass)
-        } catch (error) {
-            console.log("error in creating user")
-        }
-    }
-
-    const signInUserWithEmail = (email, pass) => signInWithEmailAndPassword(FirebaseAuth, email, pass)
-        .then(() => {
-        console.log("sucess in siging user")
-        })
-        .catch((e) => {
-        console.log("error in signing user")
-    })
-
-    const singInWithEmailLink = (email) =>
-        sendSignInLinkToEmail(FirebaseAuth, email, actionCodeSettings)
-            .then(() => {
-                window.localStorage.setItem('emailForSignIn', email);
-                console.log("mail sent")
-                setUser(user)
-            })
-            .catch((e) => {
-                console.log("error info", e.code, e.message,);
-            })
-
-    var isLoggedIn = user ? true : false
-
-    const logout = () => {
-        signOut(FirebaseAuth).then(() => {
-            isLoggedIn = false
-            console.log("signout success")
-        }).catch((error) => {
-            console.log("signout fail")
-        });
-    }
-
-    //Captcha 
-    const setupRecaptcha = () => {
-        if (!window.recaptchaVerifier) {
-            window.recaptchaVerifier = new RecaptchaVerifier(FirebaseAuth, 'recaptcha-container', {
-                'size': 'invisible',
-                'callback': (response) => {
-                    console.log('Recaptcha resolved');
-                },
-                'expired-callback': () => {
-                    console.log('Recaptcha expired');
+            onAuthStateChanged(FirebaseAuth, (user) => {
+                if (user) {
+                    setUser(user);
+                    setIsLoggedIn(true);
+                } else {
+                    setUser(null);
+                    setIsLoggedIn(false);
                 }
-            },);
-            window.recaptchaVerifier.render();
+            });
+        } catch (error) {
+            console.error("Error in onAuthStateChanged: ", error);
+        }
+    }, []);
+
+    const signInWithGoogle = async () => {
+        try {
+            await signInWithPopup(FirebaseAuth, googleAuth);
+        } catch (error) {
+            console.error("Error in signInWithGoogle: ", error);
         }
     };
 
-    // Function to sign in with mobile number
-    const signInWithMobile = async (mobileNum) => {
-        setupRecaptcha(); // Setup recaptcha before sign-in
-        const appVerifier = window.recaptchaVerifier;
-        await signInWithPhoneNumber(FirebaseAuth, mobileNum, appVerifier)
-            .then((confirmationResult) => {
-                console.log("OTP sent");
-                window.confirmationResult = confirmationResult;
-            })
-            .catch((error) => {
-                console.log("OTP sending failed", error);
-            });
+    const signUpUserWithEmail = async (email, pass) => {
+        try {
+            await createUserWithEmailAndPassword(FirebaseAuth, email, pass);
+        } catch (error) {
+            console.error("Error in signUpUserWithEmail: ", error);
+        }
     };
 
-    // Function to verify OTP
-    const verifyOTP = (otp) => {
-        window.confirmationResult.confirm(otp).then((result) => {
+    const signInUserWithEmail = async (email, pass) => {
+        try {
+            await signInWithEmailAndPassword(FirebaseAuth, email, pass);
+            console.log("Success in signing user");
+        } catch (error) {
+            console.error("Error in signInUserWithEmail: ", error);
+        }
+    };
+
+    const singInWithEmailLink = async (email) => {
+        try {
+            await sendSignInLinkToEmail(FirebaseAuth, email, actionCodeSettings);
+            window.localStorage.setItem('emailForSignIn', email);
+            console.log("Mail sent");
+            setUser(user);
+        } catch (error) {
+            console.error("Error in singInWithEmailLink: ", error);
+        }
+    };
+
+    const logout = async () => {
+        try {
+            await signOut(FirebaseAuth);
+            setIsLoggedIn(false);
+            console.log("Signout success");
+        } catch (error) {
+            console.error("Error in logout: ", error);
+        }
+    };
+
+    const setupRecaptcha = () => {
+        try {
+            if (!window.recaptchaVerifier) {
+                window.recaptchaVerifier = new RecaptchaVerifier(FirebaseAuth, 'recaptcha-container', {
+                    'size': 'invisible',
+                    'callback': (response) => {
+                        console.log('Recaptcha resolved');
+                    },
+                    'expired-callback': () => {
+                        console.log('Recaptcha expired');
+                    }
+                });
+                window.recaptchaVerifier.render();
+            }
+        } catch (error) {
+            console.error("Error in setupRecaptcha: ", error);
+        }
+    };
+
+    const signInWithMobile = async (mobileNum) => {
+        try {
+            setupRecaptcha(); // Setup recaptcha before sign-in
+            const appVerifier = window.recaptchaVerifier;
+            await signInWithPhoneNumber(FirebaseAuth, mobileNum, appVerifier);
+            console.log("OTP sent");
+        } catch (error) {
+            console.error("Error in signInWithMobile: ", error);
+        }
+    };
+
+    const verifyOTP = async (otp) => {
+        try {
+            const result = await window.confirmationResult.confirm(otp);
             const user = result.user;
             setUser(user);
             console.log("User signed in with OTP");
-        }).catch((error) => {
-            console.log("OTP verification failed", error);
-        });
+        } catch (error) {
+            console.error("Error in verifyOTP: ", error);
+        }
     };
 
-
     const setArticles = async (name, place, state, article, destPic) => {
+        try {
+            const imageRef = ref(storage, `uploads/articles/statePic/${Date.now()}-${destPic.name}`);
+            // console.log("imageRef", imageRef);
 
-        const imageRef = ref(storage, `uploads/articles/statePic/${Date.now()}-${destPic.name}`)
-        console.log("iamgeREf", imageRef);
+            const uploadStatePic = await uploadBytes(imageRef, destPic);
+            // console.log("uploadStatePic", uploadStatePic);
 
-        const uploadStatePic = await uploadBytes(imageRef, destPic)
-        console.log("uploadStatePic", uploadStatePic);
-
-        return await addDoc(collection(FireStore, "articles"), {
-            name,
-            place,
-            state,
-            article,
-            imageURL: uploadStatePic.ref.fullPath,
-            userID: user.uid,
-            userEmail: user.email,
-            displayName: user.displayName,
-            profilPic: user.photoURL,
-            writtenOnDate: new Date().toLocaleDateString('en-GB', {
-                day: '2-digit',
-                month: 'short',
-                year: 'numeric'
-            }),
-
-        })
-    }
+            return await addDoc(collection(FireStore, "articles"), {
+                name,
+                place,
+                state,
+                article,
+                imageURL: uploadStatePic.ref.fullPath,
+                userID: user.uid,
+                userEmail: user.email,
+                displayName: user.displayName,
+                profilPic: user.photoURL,
+                writtenOnDate: new Date().toLocaleDateString('en-GB', {
+                    day: '2-digit',
+                    month: 'short',
+                    year: 'numeric'
+                }),
+            });
+        } catch (error) {
+            console.error("Error in setArticles: ", error);
+        }
+    };
 
     const getArticles = async () => {
-        return await getDocs(collection(FireStore, "articles"))
-    }
+        try {
+            return await getDocs(collection(FireStore, "articles"));
+        } catch (error) {
+            console.error("Error in getArticles: ", error);
+        }
+    };
 
     const getStateBlogs = async (state) => {
         try {
@@ -189,33 +199,10 @@ export const FirebaseProvider = (props) => {
             }
             return querySnapshot;
         } catch (error) {
-            console.error('Error getting blogs: ', error);
-            throw new Error('Error getting blogs');
+            console.error('Error in getStateBlogs: ', error);
         }
-    }
+    };
 
-    //Not used due to bug leaving for future me to remember mistake
-    // const getPlaceBlog = async (place) => {
-    //     try {
-    //         const blogRef = collection(FireStore, "articles")
-    //         const q = query(blogRef, where("place", "==", place))
-    //         const blogDetails = await getDocs(q)
-
-    //         // if (blogDetails.empty) {
-    //         //     console.log("fn working")
-    //         //     return []
-    //         // }
-
-    //         console.log("working")
-    //         console.log("blogDetails.docs[0].data()",blogDetails.docs[0].data())
-    //         return blogDetails.docs[0].data();
-    //     } catch (error) {
-    //         console.error('Error getting blogs: ', error);
-    //         throw new Error('Error getting blogs');
-    //     }
-    // }
-
-    //no bug here 
     const getPlaceBlogId = async (id) => {
         try {
             const blogRef = doc(FireStore, "articles", id);
@@ -227,25 +214,29 @@ export const FirebaseProvider = (props) => {
             }
 
             return blogDoc.data();
-
         } catch (error) {
-            console.error('Error getting blog: ', error);
-            throw new Error('Error getting blog');
+            console.error('Error in getPlaceBlogId: ', error);
         }
-    }
+    };
 
-
-    const getImageURL = (path) => {
-        return getDownloadURL(ref(storage, path))
-    }
+    const getImageURL = async (path) => {
+        try {
+            return await getDownloadURL(ref(storage, path));
+        } catch (error) {
+            console.error('Error in getImageURL: ', error);
+        }
+    };
 
     const deleteArticles = async (articleID) => {
-        await deleteDoc(doc(FireStore, "articles", articleID))
-        console.log(`article - ${articleID} deleted`)
-    }
+        try {
+            await deleteDoc(doc(FireStore, "articles", articleID));
+            console.log(`Article - ${articleID} deleted`);
+        } catch (error) {
+            console.error('Error in deleteArticles: ', error);
+        }
+    };
 
     return (
-
         <FirebaseContext.Provider
             value={{
                 signUpUserWithEmail,
@@ -262,7 +253,6 @@ export const FirebaseProvider = (props) => {
                 getImageURL,
                 deleteArticles,
                 getStateBlogs,
-                // getPlaceBlog,
                 getPlaceBlogId,
             }}
         >
