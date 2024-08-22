@@ -52,9 +52,9 @@ const RegisterPage = () => {
                             value={password}
                             type="password"
                             placeholder="What's the Secret Code?"
-                        />
-                        
+                        />                        
                     </Form.Group>
+                    
                     <h6 style={{cursor: "pointer", color: "navy"}} onClick={() => navigate("/login")} >Already have an Account?</h6>
                     <Button className='mt-4' variant="primary" type="submit">
                         Register

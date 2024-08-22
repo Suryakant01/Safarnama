@@ -47,7 +47,7 @@ const Form = () => {
 
     console.log("loggin", firebase.isLoggedIn)
     useEffect(() => {
-        if (firebase.isLoggedIn) {
+        if (!firebase.isLoggedIn) {
             setNotificationMessage("Please, Login First")
             // navigate("/login")
         }
