@@ -1,19 +1,19 @@
-/*
-/* 
-h1 {
-    font-size: 2.5rem;
-    color: #333;
-  }
-  
-  .img-fluid {
-    border-radius: 5px;
-  }
-  
-  .text-center {
-    background-image: url('https://firebasestorage.googleapis.com/v0/b/bookify-59edc.appspot.com/o/uploads%2Fbooks%2FcoverPic%2F1719687831942-IMG20240104065917.jpg?alt=media&token=ab9a1196-203a-44ce-843e-2b0fe6834b9e'); 
-    background-size: cover;
-    background-position: center;
-    color: white;
-    padding: 100px 0;
-  }
-   */
+/* src/components/CSS/Gallery.css */
+.my-masonry-grid {
+  display: flex;
+  margin-left: -30px; /* gutter size offset */
+  width: auto;
+}
+.my-masonry-grid_column {
+  padding-left: 30px; /* gutter size */
+  background-clip: padding-box;
+}
+
+.my-masonry-grid_column > img {
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.gallery-container h2 {
+  margin-bottom: 20px;
+}

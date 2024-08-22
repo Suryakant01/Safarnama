@@ -1,40 +1,69 @@
-// src/Gallery.js
-import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
-import '../components/CSS/Gallery.css';
+import React, { useEffect, useState } from 'react';
+import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
+import Paper from '@mui/material/Paper';
+import Masonry from '@mui/lab/Masonry';
+import { useFirebase } from "../context/firebase.context.jsx"; // Import the context
 
-const Gallery = () => {
-    return (
-        <Container className="mt-4">
-            <div className="text-center mb-4">
-                <h1>Explore INDIA from our Gallery</h1>
-            </div>
-            <h2>Image Gallery</h2>
-            <div>line ki image hogi yha</div>
-            <Row>
-                <Col md={4} className="mb-4">
-                    <img src="https://firebasestorage.googleapis.com/v0/b/bookify-59edc.appspot.com/o/uploads%2Fbooks%2FcoverPic%2F1719687831942-IMG20240104065917.jpg?alt=media&token=ab9a1196-203a-44ce-843e-2b0fe6834b9e" alt="Image-1" className="img-fluid" />
-                </Col>
-                <Col md={4} className="mb-4">
-                    <img src="https://firebasestorage.googleapis.com/v0/b/bookify-59edc.appspot.com/o/uploads%2Fbooks%2FcoverPic%2F1719687831942-IMG20240104065917.jpg?alt=media&token=ab9a1196-203a-44ce-843e-2b0fe6834b9e" alt="Image-2" className="img-fluid" />
-                </Col>
-                <Col md={4} className="mb-4">
-                    <img src="https://firebasestorage.googleapis.com/v0/b/bookify-59edc.appspot.com/o/uploads%2Fbooks%2FcoverPic%2F1719687831942-IMG20240104065917.jpg?alt=media&token=ab9a1196-203a-44ce-843e-2b0fe6834b9e" alt="Image-3" className="img-fluid" />
-                </Col>
-            </Row>
-            <Row>
-                <Col md={4} className="mb-4">
-                    <img src="https://firebasestorage.googleapis.com/v0/b/bookify-59edc.appspot.com/o/uploads%2Fbooks%2FcoverPic%2F1719687831942-IMG20240104065917.jpg?alt=media&token=ab9a1196-203a-44ce-843e-2b0fe6834b9e" alt="Image-4" className="img-fluid" />
-                </Col>
-                <Col md={4} className="mb-4">
-                    <img src="https://firebasestorage.googleapis.com/v0/b/bookify-59edc.appspot.com/o/uploads%2Fbooks%2FcoverPic%2F1719687831942-IMG20240104065917.jpg?alt=media&token=ab9a1196-203a-44ce-843e-2b0fe6834b9e" alt="Image-5" className="img-fluid" />
-                </Col>
-                <Col md={4} className="mb-4">
-                    <img src="https://firebasestorage.googleapis.com/v0/b/bookify-59edc.appspot.com/o/uploads%2Fbooks%2FcoverPic%2F1719687831942-IMG20240104065917.jpg?alt=media&token=ab9a1196-203a-44ce-843e-2b0fe6834b9e" alt="Image-6" className="img-fluid" />
-                </Col>
-            </Row>
-        </Container>
-    );
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+  overflow: 'hidden', // Ensure overflow is hidden to prevent text from spilling out
+}));
+
+// Utility function to shuffle an array
+const shuffleArray = (array) => {
+  return array.sort(() => Math.random() - 0.5);
 };
 
-export default Gallery;
+// Utility function to generate a random height
+const getRandomHeight = () => Math.floor(Math.random() * (300 - 150 + 1)) + 150;
+
+export default function BasicMasonry() {
+  const { getArticles, getImageURL } = useFirebase(); // Get functions from context
+  const [articles, setArticles] = useState([]);
+
+  useEffect(() => {
+    const fetchArticles = async () => {
+      const articlesSnapshot = await getArticles();
+      const articlesData = [];
+
+      for (const doc of articlesSnapshot.docs) {
+        const data = doc.data();
+        const imageURL = await getImageURL(data.imageURL); // Get the image URL from Firebase Storage
+        articlesData.push({ ...data, imageURL });
+      }
+
+      // Shuffle the articles array to randomize the order of images
+      setArticles(shuffleArray(articlesData));
+    };
+
+    fetchArticles();
+  }, [getArticles, getImageURL]);
+
+  return (
+    <Box sx={{ width: '100%', minHeight: 600, padding: 2 }}>
+      <Masonry columns={{ xs: 2, sm: 3, md: 4 }} spacing={2}>
+        {articles.map((article, index) => (
+          <Item key={index} sx={{ height: getRandomHeight() }}>
+            <img
+              src={article.imageURL}
+              alt={article.place}
+              style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
+            />
+            {/* <div style={{ padding: '5px 0', width: '100%' }}>
+              <h3 style={{ margin: '0', fontSize: '1rem' }}>{article.place}</h3>
+            </div> */}
+          </Item>
+        ))}
+      </Masonry>
+    </Box>
+  );
+}
