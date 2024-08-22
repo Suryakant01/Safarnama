@@ -7,9 +7,9 @@ const ImageGallery = () => {
         <div className="image-gallery-container">
 
             <div className="images">
-            <img src={`${process.env.PUBLIC_URL}/images/Image1.jpeg`} alt="taj mahal" className="image1" />
-        <img src={`${process.env.PUBLIC_URL}/images/Image2.jpeg`} alt="hawa mahal" className="image2" />
-        <img src={`${process.env.PUBLIC_URL}/images/Image3.jpeg`} alt="kerala" className="image3" />
+            <img src="https://firebasestorage.googleapis.com/v0/b/safarnama-c075f.appspot.com/o/Assets%2FImage1.jpeg?alt=media&token=93a96786-78d2-4ae0-b12a-c71d9e0ec128" alt="taj mahal" className="image1" />
+        <img src="https://firebasestorage.googleapis.com/v0/b/safarnama-c075f.appspot.com/o/Assets%2FImage2.jpeg?alt=media&token=0fe8f434-b704-4dd6-a6b6-68ad7c82c5e2" alt="hawa mahal" className="image2" />
+        <img src="https://firebasestorage.googleapis.com/v0/b/safarnama-c075f.appspot.com/o/Assets%2FImage3.jpeg?alt=media&token=16097468-04f7-46f6-a882-11ce55c03a93" alt="kerala" className="image3" />
 
             </div>
 

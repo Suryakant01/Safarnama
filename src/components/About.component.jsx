@@ -19,7 +19,7 @@ const AboutComponent = () => {
           <img
             style={imageStyle}
             className="d-block w-100"
-            src="/images/CosouselImg4.jpg"
+            src="https://firebasestorage.googleapis.com/v0/b/safarnama-c075f.appspot.com/o/Assets%2FCosouselImg4.jpg?alt=media&token=f46399f4-f666-4095-a43f-76902aaa7d87"
             alt="First slide"
           />
         </Carousel.Item>
@@ -27,7 +27,7 @@ const AboutComponent = () => {
           <img
             style={imageStyle}
             className="d-block w-100"
-            src="/images/CorouselImg6.jpg"
+            src="https://firebasestorage.googleapis.com/v0/b/safarnama-c075f.appspot.com/o/Assets%2FCorouselImg6.jpg?alt=media&token=b41fab60-491d-48e9-94ae-2aeb453a1a35"
             alt="Second slide"
           />
         </Carousel.Item>
@@ -35,7 +35,7 @@ const AboutComponent = () => {
           <img
             style={imageStyle}
             className="d-block w-100"
-            src="/images/CorouselImg2.jpg"
+            src="https://firebasestorage.googleapis.com/v0/b/safarnama-c075f.appspot.com/o/Assets%2FCorouselImg2.jpg?alt=media&token=6ebf75d6-0439-4582-83bf-4ed968d11ee5"
             alt="Third slide"
           />
         </Carousel.Item>
@@ -43,7 +43,7 @@ const AboutComponent = () => {
           <img
             style={imageStyle}
             className="d-block w-100"
-            src="/images/CorouselImg1.jpg"
+            src="https://firebasestorage.googleapis.com/v0/b/safarnama-c075f.appspot.com/o/Assets%2FCorouselImg1.jpg?alt=media&token=f98f6fcd-15b8-4189-942e-e4fe9f645f4f"
             alt="Fourth slide"
           />
         </Carousel.Item>
@@ -51,7 +51,7 @@ const AboutComponent = () => {
           <img
             style={imageStyle}
             className="d-block w-100"
-            src="/images/CorouselImg3.jpg"
+            src="https://firebasestorage.googleapis.com/v0/b/safarnama-c075f.appspot.com/o/Assets%2FCorouselImg3.jpg?alt=media&token=8a981992-280d-48fe-bb97-0b17abac236e"
             alt="Fifth slide"
           />
         </Carousel.Item>
