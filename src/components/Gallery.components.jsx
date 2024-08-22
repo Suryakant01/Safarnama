@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Masonry from '@mui/lab/Masonry';
+import Skeleton from '@mui/material/Skeleton';
 import { useFirebase } from "../context/firebase.context.jsx"; // Import the context
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -29,6 +30,7 @@ const getRandomHeight = () => Math.floor(Math.random() * (300 - 150 + 1)) + 150;
 export default function BasicMasonry() {
   const { getArticles, getImageURL } = useFirebase(); // Get functions from context
   const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(true); // Loading state
 
   useEffect(() => {
     const fetchArticles = async () => {
@@ -43,6 +45,7 @@ export default function BasicMasonry() {
 
       // Shuffle the articles array to randomize the order of images
       setArticles(shuffleArray(articlesData));
+      setLoading(false); // Set loading to false after data is fetched
     };
 
     fetchArticles();
@@ -51,18 +54,21 @@ export default function BasicMasonry() {
   return (
     <Box sx={{ width: '100%', minHeight: 600, padding: 2 }}>
       <Masonry columns={{ xs: 2, sm: 3, md: 4 }} spacing={2}>
-        {articles.map((article, index) => (
-          <Item key={index} sx={{ height: getRandomHeight() }}>
-            <img
-              src={article.imageURL}
-              alt={article.place}
-              style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
-            />
-            {/* <div style={{ padding: '5px 0', width: '100%' }}>
-              <h3 style={{ margin: '0', fontSize: '1rem' }}>{article.place}</h3>
-            </div> */}
-          </Item>
-        ))}
+        {loading
+          ? [...Array(8)].map((_, index) => (
+              <Item key={index} sx={{ height: getRandomHeight() }}>
+                <Skeleton variant="rectangular" width="100%" height="100%" />
+              </Item>
+            ))
+          : articles.map((article, index) => (
+              <Item key={index} sx={{ height: getRandomHeight() }}>
+                <img
+                  src={article.imageURL}
+                  alt={article.place}
+                  style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
+                />
+              </Item>
+            ))}
       </Masonry>
     </Box>
   );

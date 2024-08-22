@@ -5,7 +5,7 @@ import DestinationSection from '../components/Destination.componenets';
 import ImageGallery from '../components/ImageGallery.components';
 import Write from '../components/Write.comonent';
 import SkeletonLoader from '../components/SkeletonLoader.components';
-import { CardGroup, Row, Col } from 'react-bootstrap';
+import { CardGroup, Row, Col, Button } from 'react-bootstrap';
 
 const HomePage = () => {
     const firebase = useFirebase();
@@ -13,9 +13,9 @@ const HomePage = () => {
     const [loading, setLoading] = useState(true);
     const [articles, setArticles] = useState([]);
     const [currentImageIndex, setCurrentImageIndex] = useState({});
+    const [visibleArticles, setVisibleArticles] = useState(6); // State to control the number of displayed articles
 
     useEffect(() => {
-        // Simulate data fetching
         setTimeout(() => {
             setLoading(false);
         }, 2000);
@@ -23,7 +23,6 @@ const HomePage = () => {
         firebase.getArticles().then((articles) => {
             setArticles(articles.docs);
 
-            // Initialize currentImageIndex with first image for each state
             const initialImageIndex = {};
             articles.docs.forEach((article) => {
                 const state = article.data().state;
@@ -36,7 +35,6 @@ const HomePage = () => {
     }, [firebase]);
 
     useEffect(() => {
-        // Automatically cycle through images every 5 seconds
         const interval = setInterval(() => {
             setCurrentImageIndex((prevIndex) => {
                 const newIndex = { ...prevIndex };
@@ -48,9 +46,13 @@ const HomePage = () => {
                 });
                 return newIndex;
             });
-        }, 5000); // Change image every 5 seconds
-        return () => clearInterval(interval); // Cleanup on unmount
+        }, 5000);
+        return () => clearInterval(interval);
     }, [articles]);
+
+    const loadMoreArticles = () => {
+        setVisibleArticles((prev) => prev + 3); // Load 3 more articles
+    };
 
     return (
         <>
@@ -75,7 +77,9 @@ const HomePage = () => {
                                             article
                                         ])
                                     ).values()
-                                ).map((article) => {
+                                )
+                                .slice(0, visibleArticles) // Show only the number of articles specified by `visibleArticles`
+                                .map((article) => {
                                     const state = article.data().state;
                                     const stateArticles = articles.filter((a) => a.data().state === state);
                                     const currentArticle = stateArticles[currentImageIndex[state]];
@@ -92,6 +96,12 @@ const HomePage = () => {
                             }
                         </Row>
                     </CardGroup>
+
+                    {visibleArticles < articles.length && (
+                        <div className='text-center my-4'>
+                            <Button onClick={loadMoreArticles}>Load More</Button>
+                        </div>
+                    )}
                 </>
             )}
 
