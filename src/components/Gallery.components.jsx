@@ -4,7 +4,7 @@ import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Masonry from '@mui/lab/Masonry';
 import Skeleton from '@mui/material/Skeleton';
-import { useFirebase } from "../context/firebase.context.jsx"; // Import the context
+import { useFirebase } from '../context/firebase.context'; // Import the context
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -17,6 +17,8 @@ const Item = styled(Paper)(({ theme }) => ({
   textAlign: 'center',
   color: theme.palette.text.secondary,
   overflow: 'hidden', // Ensure overflow is hidden to prevent text from spilling out
+  maxWidth: '100%', // Prevent horizontal expansion
+  boxSizing: 'border-box', // Ensure padding is included in width/height
 }));
 
 // Utility function to shuffle an array
@@ -53,7 +55,15 @@ export default function BasicMasonry() {
 
   return (
     <Box sx={{ width: '100%', minHeight: 600, padding: 2 }}>
-      <Masonry columns={{ xs: 2, sm: 3, md: 4 }} spacing={2}>
+      <Masonry
+        columns={{ xs: 1, sm: 2, md: 3, lg: 4 }} // Columns adjust based on screen size
+        spacing={2}
+        sx={{
+          '& > .MuiMasonry-item': {
+            maxWidth: '100%', // Ensure no item exceeds its column width
+          },
+        }}
+      >
         {loading
           ? [...Array(8)].map((_, index) => (
               <Item key={index} sx={{ height: getRandomHeight() }}>
