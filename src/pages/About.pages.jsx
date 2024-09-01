@@ -11,7 +11,7 @@ function About() {
                 <row>
                     <h1>About Us</h1>
                     <p>
-                        Welcome to Banajara, your ultimate travel companion! At Banajara, we
+                        Welcome to Safarnama, your ultimate travel companion! At Banajara, we
                         believe that every journey is made richer by the stories and
                         experiences of those who have walked the path before. Our platform
                         allows you to search for your dream travel destinations and discover
