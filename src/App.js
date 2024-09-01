@@ -34,6 +34,7 @@ function App() {
                     <Route path="/blogs/:states" element={<StateBlogs />} />
                     <Route path="/blogs/:states/:id" element={<BlogPage />} />
                     <Route path="/destination" element={<DestinationPage />} />
+                    <Route path="/destination/:id" element={<BlogPage />} />
                     <Route path="/gallery" element={<Gallery />} />
                     <Route path="/blog" element={<BlogForm />} />
                     <Route path="/login" element={<LoginPage />} />

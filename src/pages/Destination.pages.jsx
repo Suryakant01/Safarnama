@@ -100,6 +100,7 @@ const DestinationPage = () => {
                                         title={article.state}
                                         image={article.imageURL}
                                         {...article}
+                                        link={`${article.id}`}
                                     />
                                 </Col>
                             ))}
