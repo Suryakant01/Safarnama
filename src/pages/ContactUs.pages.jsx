@@ -81,7 +81,7 @@ const ContactUs = () => {
                     <div className="contact-card">
                         <img src="https://firebasestorage.googleapis.com/v0/b/safarnama-c075f.appspot.com/o/Assets%2FigCBxrc3_400x400.jpg?alt=media&token=6f270e9c-c01c-4f18-8fb2-235ed8686645" alt="Person 2" className="contact-photo" />
                         <div className="contact-details">
-                            <h4>Shubhi Pandey</h4>
+                            <h4>Shubhi</h4>
                             <div className="social-icons">
                                 <a href="https://x.com/shubhijbm" target="_blank" rel="noopener noreferrer"><FaTwitter size={30} /></a>
                                 <a href="https://www.linkedin.com/in/shubhi-pandey/" target="_blank" rel="noopener noreferrer"><FaLinkedin size={30} /></a>
