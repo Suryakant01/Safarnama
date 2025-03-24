@@ -70,7 +70,7 @@ const MyNavbar = () => {
                         <Nav.Link href="/blog" style={{ fontWeight: "bold" }}>Write</Nav.Link>
                         <Nav.Link href="/about" style={{ fontWeight: "bold" }}>About</Nav.Link>
 
-                        <Nav.Link href="/contact-us" style={{ fontWeight: "bold" }}>Contact Us</Nav.Link>
+                        {/* <Nav.Link href="/contact-us" style={{ fontWeight: "bold" }}>Contact Us</Nav.Link> */}
                         <Nav.Link href="saved-blogs" style={{ fontWeight: "bold" }}>My Preciouss</Nav.Link>
 
                     </Nav>

@@ -83,9 +83,9 @@ const ContactUs = () => {
                         <div className="contact-details">
                             <h4>Shubhi</h4>
                             <div className="social-icons">
-                                <a href="https://x.com/_" target="_blank" rel="noopener noreferrer"><FaTwitter size={30} /></a>
-                                <a href="https://www.linkedin.com/in/" target="_blank" rel="noopener noreferrer"><FaLinkedin size={30} /></a>
-                                <a href="https://github.com/" target="_blank" rel="noopener noreferrer"><FaGithub size={30} /></a>
+                                <a href="https://x.com/shubhijbm" target="_blank" rel="noopener noreferrer"><FaTwitter size={30} /></a>
+                                <a href="https://www.linkedin.com/in/shubhi-pandey/" target="_blank" rel="noopener noreferrer"><FaLinkedin size={30} /></a>
+                                <a href="https://github.com/Shubhipandey21" target="_blank" rel="noopener noreferrer"><FaGithub size={30} /></a>
                             </div>
                         </div>
                     </div>
