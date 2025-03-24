@@ -20,7 +20,7 @@ const Footer = () => {
                             <Nav.Link href="/" style={{ color: 'white' }}>Home</Nav.Link>
                             <Nav.Link href="/destination" style={{ color: 'white' }}>Destinations</Nav.Link>
                             <Nav.Link href="/gallery" style={{ color: 'white' }}>Gallery</Nav.Link>
-                            <Nav.Link href="/contact" style={{ color: 'white' }}>Contact Us</Nav.Link>
+                            {/* <Nav.Link href="/contact" style={{ color: 'white' }}>Contact Us</Nav.Link> */}
                         </Nav>
                     </Col>
                     <Col md={4}>
