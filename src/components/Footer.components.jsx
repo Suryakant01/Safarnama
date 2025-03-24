@@ -27,8 +27,8 @@ const Footer = () => {
                         <h5>Follow Us</h5>
                         <div>
                             <a href="https://github.com/Suryakant01/Safarnama" style={{ color: 'white', marginRight: '15px' }}><FaGithub size={30} /></a>
-                            <a href="https://twitter.com" style={{ color: 'white', marginRight: '15px' }}><FaTwitter size={30} /></a>
-                            <a href="https://linkedin.com" style={{ color: 'white' }}><FaLinkedin size={30} /></a>
+                            <a href="https://x.com/_iamsatyam_" style={{ color: 'white', marginRight: '15px' }}><FaTwitter size={30} /></a>
+                            <a href="https://www.linkedin.com/in/suryakant-yadav-6192a224a" style={{ color: 'white' }}><FaLinkedin size={30} /></a>
                         </div>
                     </Col>
                 </Row>
