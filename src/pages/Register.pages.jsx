@@ -28,7 +28,7 @@ const RegisterPage = () => {
     return (
         <div className='page'>
             <div className='image-section'>
-                <img src={`${process.env.PUBLIC_URL}/images/Loginimg.png`} alt="loginImg" className='login-image' />
+                <img src="https://firebasestorage.googleapis.com/v0/b/safarnama-c075f.appspot.com/o/Assets%2FLoginimg.png?alt=media&token=ad0351d8-3158-42d8-a436-22c409d9bdcb" alt="loginImg" className='login-image' />
             </div>
 
             <div className="form">
