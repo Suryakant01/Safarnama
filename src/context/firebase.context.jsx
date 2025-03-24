@@ -14,7 +14,7 @@ import {
     signInWithPhoneNumber,
     signOut,
 } from "firebase/auth";
-import { getFirestore, serverTimestamp, doc, getDoc, getDocs, addDoc, collection, query, where, deleteDoc, Firestore } from "firebase/firestore";
+import { getFirestore, doc, getDoc, getDocs, addDoc, collection, query, where, deleteDoc, Firestore, updateDoc, arrayUnion, arrayRemove, increment, onSnapshot, setDoc, serverTimestamp  } from "firebase/firestore";
 
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
@@ -31,7 +31,6 @@ const firebaseConfig = {
 };
 
 const FirebaseApp = initializeApp(firebaseConfig);
-const analytics = getAnalytics(FirebaseApp);
 const FirebaseAuth = getAuth(FirebaseApp);
 const googleAuth = new GoogleAuthProvider();
 const FireStore = getFirestore(FirebaseApp);
@@ -154,10 +153,7 @@ export const FirebaseProvider = (props) => {
     const setArticles = async (name, place, state, article, destPic) => {
         try {
             const imageRef = ref(storage, `uploads/articles/statePic/${Date.now()}-${destPic.name}`);
-            // console.log("imageRef", imageRef);
-
             const uploadStatePic = await uploadBytes(imageRef, destPic);
-            // console.log("uploadStatePic", uploadStatePic);
 
             return await addDoc(collection(FireStore, "articles"), {
                 name,
@@ -174,6 +170,9 @@ export const FirebaseProvider = (props) => {
                     month: 'short',
                     year: 'numeric'
                 }),
+                likes: 0, // Initialize likes count
+                likedBy: [], // Array to store user IDs of who liked the article
+                savedBy: [], // Array to store user IDs of who saved the article
             });
         } catch (error) {
             console.error("Error in setArticles: ", error);
@@ -236,6 +235,100 @@ export const FirebaseProvider = (props) => {
         }
     };
 
+    const likeArticle = async (articleID) => {
+        try {
+            const articleRef = doc(FireStore, "articles", articleID);
+            const articleDoc = await getDoc(articleRef);
+    
+            if (articleDoc.exists()) {
+                const currentLikes = articleDoc.data().likes || 0;
+                await updateDoc(articleRef, { likes: currentLikes + 1 });
+            }
+        } catch (error) {
+            console.error("Error in likeArticle: ", error);
+        }
+    };
+
+    
+    const getArticleLikes = (articleID, callback) => {
+        try {
+            const articleRef = doc(FireStore, "articles", articleID);
+            return onSnapshot(articleRef, (docSnapshot) => {
+                if (docSnapshot.exists()) {
+                    const articleData = docSnapshot.data();
+                    callback(articleData.likes || 0);
+                } else {
+                    callback(0); // If the document doesn't exist, assume 0 likes
+                }
+            });
+        } catch (error) {
+            console.error("Error in getArticleLikes: ", error);
+            callback(0);
+        }
+    };
+    
+    const saveArticle = async (articleID) => {
+        try {
+            if (!user) {
+                console.error("User not logged in");
+                return;
+            }
+    
+            const userSavedRef = doc(FireStore, "users", user.uid, "savedArticles", articleID);
+            await setDoc(userSavedRef, {
+                articleID: articleID,
+                savedOn: serverTimestamp(),
+            });
+    
+            console.log(`Article ${articleID} saved for user ${user.uid}`);
+        } catch (error) {
+            console.error("Error in saveArticle: ", error);
+
+
+        }
+    };
+
+    const getSavedArticles = async (userID, callback) => {
+        try {
+            const savedArticlesRef = collection(FireStore, "users", userID, "savedArticles");
+            const q = query(savedArticlesRef);
+            return onSnapshot(q, (snapshot) => {
+                const savedArticles = [];
+                snapshot.forEach((doc) => {
+                    savedArticles.push(doc.data().articleID);
+                });
+                callback(savedArticles);
+            });
+        } catch (error) {
+            console.error("Error in getSavedArticles: ", error);
+        }
+    };
+
+    const unlikeArticle = async (articleID) => {
+        try {
+            const articleRef = doc(FireStore, "articles", articleID);
+            await updateDoc(articleRef, {
+                likes: arrayRemove(user.uid),
+                likedBy: arrayRemove(user.uid) // remove user ID from the likedBy array
+            });
+            console.log(`Article ${articleID} unliked by ${user.uid}`);
+        } catch (error) {
+            console.error('Error in unlikeArticle: ', error);
+        }
+    };
+
+    const unsaveArticle = async (articleID) => {
+        try {
+            const articleRef = doc(FireStore, "articles", articleID);
+            await updateDoc(articleRef, {
+                savedBy: arrayRemove(user.uid) // remove user ID from the savedBy array
+            });
+            console.log(`Article ${articleID} unsaved by ${user.uid}`);
+        } catch (error) {
+            console.error('Error in unsaveArticle: ', error);
+        }
+    };
+
     return (
         <FirebaseContext.Provider
             value={{
@@ -254,6 +347,13 @@ export const FirebaseProvider = (props) => {
                 deleteArticles,
                 getStateBlogs,
                 getPlaceBlogId,
+                likeArticle,
+                unlikeArticle,
+                saveArticle,
+                unsaveArticle,
+                getArticleLikes,
+                getSavedArticles,
+
             }}
         >
             {props.children}

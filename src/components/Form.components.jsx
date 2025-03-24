@@ -74,7 +74,11 @@ const Form = () => {
 
                 <textarea value={article} onChange={(e) => setArticle(e.target.value)} placeholder='Your Amazing experience!!!' required />
                 
-                <input type='file' id='file' onChange={(e) => setDestPic(e.target.files[0])} style={{ display: 'none' }} />
+                <input
+                    type='file'
+                    id='file'
+                    onChange={(e) => setDestPic(e.target.files[0])}
+                    style={{ display: 'none' }} />
                 <label htmlFor='file' className='custom-file-upload'>
                     Upload Travel Photos
                 </label>

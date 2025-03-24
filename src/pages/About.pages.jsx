@@ -15,7 +15,7 @@ function About() {
                         believe that every journey is made richer by the stories and
                         experiences of those who have walked the path before. Our platform
                         allows you to search for your dream travel destinations and discover
-                        insightful blogs written by seasoned travelers. Whether you're
+                        insightful blogs written by fellow travelers. Whether you're
                         looking for hidden gems, practical tips, or simply inspiration for
                         your next adventure, Safarnama connects you with a community of
                         explorers who share their firsthand experiences. Enhance your travel
