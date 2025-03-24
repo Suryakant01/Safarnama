@@ -34,6 +34,7 @@ const StateBlogs = () => {
                         : stateBlogs.map((stateBlog) => (
                             <Col key={stateBlog.id} sm={12} md={6} lg={4} className="mb-4">
                                 <Cards 
+                                    id = {stateBlog.id}
                                     link={`${stateBlog.id}`} 
                                     image={stateBlog.data().imageURL} 
                                     {...stateBlog.data()} 

@@ -22,6 +22,7 @@ const StateBlogs = lazy(() => import('./pages/StateBlogs.pages'));
 const BlogPage = lazy(() => import('./pages/BlogPage.pages'));
 const About = lazy(() => import('./pages/About.pages'));
 const ContactUs = lazy(() => import("./pages/ContactUs.pages"))
+const SavedArticles = lazy(() => import("./pages/SavedArticles.pages"))
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
                     <Route path="/phone" element={<PhoneAuth />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/contact-us" element={<ContactUs />} />
+                    <Route path="/saved-blogs" element={<SavedArticles />} />
                     <Route path="/hello-world" element={<h1>Hello World</h1>} />
                 </Routes>
             </Suspense>

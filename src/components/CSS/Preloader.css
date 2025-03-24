@@ -1,0 +1,44 @@
+.preloader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #121212;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+}
+
+.preloader-photo {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+.myth-text {
+    font-size: 48px;
+    color: #ffffff;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.fade-in-out {
+    animation: fade 3s ease-in-out infinite;
+}
+
+@keyframes fade {
+    0% {
+        opacity: 0;
+    }
+    25% {
+        opacity: 1;
+    }
+    75% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
