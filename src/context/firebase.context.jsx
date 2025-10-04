@@ -1,22 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-
-import {
-    getAuth,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    onAuthStateChanged,
-    GoogleAuthProvider,
-    signInWithPopup,
-    sendSignInLinkToEmail,
-    RecaptchaVerifier,
-    signInWithPhoneNumber,
-    signOut,
-} from "firebase/auth";
-import { getFirestore, serverTimestamp, doc, getDoc, getDocs, addDoc, collection, query, where, deleteDoc, Firestore } from "firebase/firestore";
-
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const FirebaseContext = createContext(null);
 
@@ -31,11 +14,38 @@ const firebaseConfig = {
 };
 
 const FirebaseApp = initializeApp(firebaseConfig);
-const analytics = getAnalytics(FirebaseApp);
-const FirebaseAuth = getAuth(FirebaseApp);
-const googleAuth = new GoogleAuthProvider();
-const FireStore = getFirestore(FirebaseApp);
-const storage = getStorage(FirebaseApp);
+
+let authInstance;
+const getAuth = async () => {
+    if (authInstance) return authInstance;
+    const { getAuth } = await import('firebase/auth');
+    authInstance = getAuth(FirebaseApp);
+    return authInstance;
+};
+
+let googleAuthProviderInstance;
+const getGoogleAuthProvider = async () => {
+    if (googleAuthProviderInstance) return googleAuthProviderInstance;
+    const { GoogleAuthProvider } = await import('firebase/auth');
+    googleAuthProviderInstance = new GoogleAuthProvider();
+    return googleAuthProviderInstance;
+};
+
+let firestoreInstance;
+const getFirestore = async () => {
+    if (firestoreInstance) return firestoreInstance;
+    const { getFirestore } = await import('firebase/firestore');
+    firestoreInstance = getFirestore(FirebaseApp);
+    return firestoreInstance;
+};
+
+let storageInstance;
+const getStorage = async () => {
+    if (storageInstance) return storageInstance;
+    const { getStorage } = await import('firebase/storage');
+    storageInstance = getStorage(FirebaseApp);
+    return storageInstance;
+};
 
 export const useFirebase = () => useContext(FirebaseContext);
 
@@ -49,23 +59,39 @@ export const FirebaseProvider = (props) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
-        try {
-            onAuthStateChanged(FirebaseAuth, (user) => {
-                if (user) {
-                    setUser(user);
-                    setIsLoggedIn(true);
-                } else {
-                    setUser(null);
-                    setIsLoggedIn(false);
-                }
-            });
-        } catch (error) {
-            console.error("Error in onAuthStateChanged: ", error);
-        }
+        let unsubscribe;
+        const initAuthListener = async () => {
+            try {
+                const FirebaseAuth = await getAuth();
+                const { onAuthStateChanged } = await import('firebase/auth');
+                unsubscribe = onAuthStateChanged(FirebaseAuth, (user) => {
+                    if (user) {
+                        setUser(user);
+                        setIsLoggedIn(true);
+                    } else {
+                        setUser(null);
+                        setIsLoggedIn(false);
+                    }
+                });
+            } catch (error) {
+                console.error("Error in onAuthStateChanged: ", error);
+            }
+        };
+
+        initAuthListener();
+
+        return () => {
+            if (unsubscribe) {
+                unsubscribe();
+            }
+        };
     }, []);
 
     const signInWithGoogle = async () => {
         try {
+            const FirebaseAuth = await getAuth();
+            const googleAuth = await getGoogleAuthProvider();
+            const { signInWithPopup } = await import('firebase/auth');
             await signInWithPopup(FirebaseAuth, googleAuth);
         } catch (error) {
             console.error("Error in signInWithGoogle: ", error);
@@ -74,6 +100,8 @@ export const FirebaseProvider = (props) => {
 
     const signUpUserWithEmail = async (email, pass) => {
         try {
+            const FirebaseAuth = await getAuth();
+            const { createUserWithEmailAndPassword } = await import('firebase/auth');
             await createUserWithEmailAndPassword(FirebaseAuth, email, pass);
         } catch (error) {
             console.error("Error in signUpUserWithEmail: ", error);
@@ -82,6 +110,8 @@ export const FirebaseProvider = (props) => {
 
     const signInUserWithEmail = async (email, pass) => {
         try {
+            const FirebaseAuth = await getAuth();
+            const { signInWithEmailAndPassword } = await import('firebase/auth');
             await signInWithEmailAndPassword(FirebaseAuth, email, pass);
             console.log("Success in signing user");
         } catch (error) {
@@ -91,6 +121,8 @@ export const FirebaseProvider = (props) => {
 
     const singInWithEmailLink = async (email) => {
         try {
+            const FirebaseAuth = await getAuth();
+            const { sendSignInLinkToEmail } = await import('firebase/auth');
             await sendSignInLinkToEmail(FirebaseAuth, email, actionCodeSettings);
             window.localStorage.setItem('emailForSignIn', email);
             console.log("Mail sent");
@@ -102,6 +134,8 @@ export const FirebaseProvider = (props) => {
 
     const logout = async () => {
         try {
+            const FirebaseAuth = await getAuth();
+            const { signOut } = await import('firebase/auth');
             await signOut(FirebaseAuth);
             setIsLoggedIn(false);
             console.log("Signout success");
@@ -110,8 +144,10 @@ export const FirebaseProvider = (props) => {
         }
     };
 
-    const setupRecaptcha = () => {
+    const setupRecaptcha = async () => {
         try {
+            const FirebaseAuth = await getAuth();
+            const { RecaptchaVerifier } = await import('firebase/auth');
             if (!window.recaptchaVerifier) {
                 window.recaptchaVerifier = new RecaptchaVerifier(FirebaseAuth, 'recaptcha-container', {
                     'size': 'invisible',
@@ -131,7 +167,9 @@ export const FirebaseProvider = (props) => {
 
     const signInWithMobile = async (mobileNum) => {
         try {
-            setupRecaptcha(); // Setup recaptcha before sign-in
+            await setupRecaptcha();
+            const FirebaseAuth = await getAuth();
+            const { signInWithPhoneNumber } = await import('firebase/auth');
             const appVerifier = window.recaptchaVerifier;
             await signInWithPhoneNumber(FirebaseAuth, mobileNum, appVerifier);
             console.log("OTP sent");
@@ -153,12 +191,12 @@ export const FirebaseProvider = (props) => {
 
     const setArticles = async (name, place, state, article, destPic) => {
         try {
+            const storage = await getStorage();
+            const FireStore = await getFirestore();
+            const { ref, uploadBytes } = await import('firebase/storage');
+            const { addDoc, collection } = await import('firebase/firestore');
             const imageRef = ref(storage, `uploads/articles/statePic/${Date.now()}-${destPic.name}`);
-            // console.log("imageRef", imageRef);
-
             const uploadStatePic = await uploadBytes(imageRef, destPic);
-            // console.log("uploadStatePic", uploadStatePic);
-
             return await addDoc(collection(FireStore, "articles"), {
                 name,
                 place,
@@ -182,6 +220,8 @@ export const FirebaseProvider = (props) => {
 
     const getArticles = async () => {
         try {
+            const FireStore = await getFirestore();
+            const { getDocs, collection } = await import('firebase/firestore');
             return await getDocs(collection(FireStore, "articles"));
         } catch (error) {
             console.error("Error in getArticles: ", error);
@@ -190,6 +230,8 @@ export const FirebaseProvider = (props) => {
 
     const getStateBlogs = async (state) => {
         try {
+            const FireStore = await getFirestore();
+            const { collection, query, where, getDocs } = await import('firebase/firestore');
             const articlesRef = collection(FireStore, 'articles');
             const q = query(articlesRef, where('state', '==', state));
             const querySnapshot = await getDocs(q);
@@ -205,6 +247,8 @@ export const FirebaseProvider = (props) => {
 
     const getPlaceBlogId = async (id) => {
         try {
+            const FireStore = await getFirestore();
+            const { doc, getDoc } = await import('firebase/firestore');
             const blogRef = doc(FireStore, "articles", id);
             const blogDoc = await getDoc(blogRef);
 
@@ -221,6 +265,8 @@ export const FirebaseProvider = (props) => {
 
     const getImageURL = async (path) => {
         try {
+            const storage = await getStorage();
+            const { getDownloadURL, ref } = await import('firebase/storage');
             return await getDownloadURL(ref(storage, path));
         } catch (error) {
             console.error('Error in getImageURL: ', error);
@@ -229,6 +275,8 @@ export const FirebaseProvider = (props) => {
 
     const deleteArticles = async (articleID) => {
         try {
+            const FireStore = await getFirestore();
+            const { doc, deleteDoc } = await import('firebase/firestore');
             await deleteDoc(doc(FireStore, "articles", articleID));
             console.log(`Article - ${articleID} deleted`);
         } catch (error) {
